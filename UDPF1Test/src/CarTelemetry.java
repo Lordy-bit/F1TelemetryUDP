@@ -1,0 +1,2 @@
+public class CarTelemetry {
+}
