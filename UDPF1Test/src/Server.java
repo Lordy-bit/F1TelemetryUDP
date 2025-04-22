@@ -18,6 +18,16 @@ public class Server {
       // }
 
 
+        while (header.getID() != 6){
+            server.receive(packet);
+            data = packet.getData();
+            header.loadInfo(data);
+        }
+
+        CarTelemetry t1 = new CarTelemetry();
+        t1.loadInfo(data,header.getPlayerIndex());
+        t1.printInfo();
+
         while (header.getID() != 4){
             server.receive(packet);
             data = packet.getData();
@@ -43,10 +53,6 @@ public class Server {
         System.out.println("");
         p3.printInfo();
 
-        char s = 'Ä';
-        System.out.println((int)s);
 
-
-        Event e = new Event();
     }
 }

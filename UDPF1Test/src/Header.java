@@ -59,6 +59,10 @@ public class Header {
         return m_playerCarIndex;
     }
 
+    public float getM_sessionTime() {
+        return m_sessionTime;
+    }
+
     public static short toShort(byte [] data, int i){
         data = Arrays.copyOfRange(data,i,i+2);  // 1 2 3
         short[] shorts = new short[data.length/2];
