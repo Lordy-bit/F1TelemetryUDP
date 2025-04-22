@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/F1TelemetryUDP.iml" filepath="$PROJECT_DIR$/.idea/F1TelemetryUDP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UDPF1Test/UDPF1Test.iml" filepath="$PROJECT_DIR$/UDPF1Test/UDPF1Test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/graficTest/graficTest.iml" filepath="$PROJECT_DIR$/graficTest/graficTest.iml" />
+    </modules>
+  </component>
+</project>
