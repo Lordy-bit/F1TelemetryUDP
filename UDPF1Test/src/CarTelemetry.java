@@ -3,52 +3,57 @@ import java.nio.ByteOrder;
 import java.util.Arrays;
 
 public class CarTelemetry {
+    int index;
     // Note: All wheel arrays have the following order:
     // RL, RR, FL, FR
 
 
-    short    m_speed;                        // Speed of car in kilometres per hour
+    short     m_speed;                        // Speed of car in kilometres per hour
     float     m_throttle;                    // Amount of throttle applied (0.0 to 1.0)
     float     m_steer;                       // Steering (-1.0 (full lock left) to 1.0 (full lock right))
     float     m_brake;                       // Amount of brake applied (0.0 to 1.0)
-    byte     m_clutch;                       // Amount of clutch applied (0 to 100)
+    byte      m_clutch;                       // Amount of clutch applied (0 to 100)
     byte      m_gear;                        // Gear selected (1-8, N=0, R=-1)
-    short    m_engineRPM;                    // Engine RPM
-    byte     m_drs;                          // 0 = off, 1 = on
-    byte     m_revLightsPercent;             // Rev lights indicator (percentage)
-    short    m_revLightsBitValue;            // Rev lights (bit 0 = leftmost LED, bit 14 = rightmost LED)
+    short     m_engineRPM;                    // Engine RPM
+    byte      m_drs;                          // 0 = off, 1 = on
+    byte      m_revLightsPercent;             // Rev lights indicator (percentage)
+    short     m_revLightsBitValue;            // Rev lights (bit 0 = leftmost LED, bit 14 = rightmost LED)
 
-    short    m_brakesTemperatureRL;          // Brakes temperature (celsius)
-    short    m_brakesTemperatureRR;
-    short    m_brakesTemperatureFL;
-    short    m_brakesTemperatureFR;
+    short     m_brakesTemperatureRL;          // Brakes temperature (celsius)
+    short     m_brakesTemperatureRR;
+    short     m_brakesTemperatureFL;
+    short     m_brakesTemperatureFR;
 
-    byte     m_tyresSurfaceTemperatureRL;    // Tyres surface temperature (celsius)
-    byte     m_tyresSurfaceTemperatureRR;
-    byte     m_tyresSurfaceTemperatureFL;
-    byte     m_tyresSurfaceTemperatureFR;
+    byte      m_tyresSurfaceTemperatureRL;    // Tyres surface temperature (celsius)
+    byte      m_tyresSurfaceTemperatureRR;
+    byte      m_tyresSurfaceTemperatureFL;
+    byte      m_tyresSurfaceTemperatureFR;
 
-    byte     m_tyresInnerTemperatureRL;     // Tyres inner temperature (celsius)
-    byte     m_tyresInnerTemperatureRR;
-    byte     m_tyresInnerTemperatureFL;
-    byte     m_tyresInnerTemperatureFR;
+    byte      m_tyresInnerTemperatureRL;     // Tyres inner temperature (celsius)
+    byte      m_tyresInnerTemperatureRR;
+    byte      m_tyresInnerTemperatureFL;
+    byte      m_tyresInnerTemperatureFR;
 
-    short    m_engineTemperature;           // Engine temperature (celsius)
+    short     m_engineTemperature;           // Engine temperature (celsius)
 
     float     m_tyresPressureRL;            // Tyres pressure (PSI)
     float     m_tyresPressureRR;
     float     m_tyresPressureFL;
     float     m_tyresPressureFR;
 
-    byte     m_surfaceTypeRL;               // Driving surface, see appendices
-    byte     m_surfaceTypeRR;
-    byte     m_surfaceTypeFL;
-    byte     m_surfaceTypeFR;
+    byte      m_surfaceTypeRL;               // Driving surface, see appendices
+    byte      m_surfaceTypeRR;
+    byte      m_surfaceTypeFL;
+    byte      m_surfaceTypeFR;
+
+    public CarTelemetry (int index){
+        this.index = index;
+    }
 
 
 
 
-    public void loadInfo(byte [] data, int index){
+    public void loadInfo(byte [] data){
         int mul = 60*index;
 
         m_speed = toShort(data,24+mul);
@@ -101,7 +106,145 @@ public class CarTelemetry {
     }
 
 
+    public short getSpeed(){
+        return m_speed;
+    }
 
+    public float getThrottle(){
+        return m_throttle;
+    }
+
+    public float getSteer(){
+        return m_steer;
+    }
+
+    public float getBrake(){
+        return m_brake;
+    }
+
+    public byte getClutch(){
+        return m_clutch;
+    }
+
+    public byte getGear() {
+        return m_gear;
+    }
+
+    public short getEngineRPM() {
+        return m_engineRPM;
+    }
+
+    public boolean DRSisOn() {
+        if(m_drs == 1){
+            return true;
+        }
+        return false;
+    }
+
+    public byte getRevLightsPercent(){
+        return m_revLightsPercent;
+    }
+
+    public short getRevLightsBitValue(){
+        return m_revLightsBitValue;
+    }
+
+
+
+    public short getBrakesTemperatureRL(){
+        return m_brakesTemperatureRL;
+    }
+
+    public short getBrakesTemperatureRR(){
+        return m_brakesTemperatureRR;
+    }
+
+    public short getBrakesTemperatureFL(){
+        return m_brakesTemperatureFL;
+    }
+
+    public short getBrakesTemperatureFR(){
+        return m_brakesTemperatureFR;
+    }
+
+
+
+    public byte getTyresSurfaceTemperatureRL() {
+        return m_tyresSurfaceTemperatureRL;
+    }
+
+    public byte getTyresSurfaceTemperatureRR() {
+        return m_tyresSurfaceTemperatureRR;
+    }
+
+    public byte getTyresSurfaceTemperatureFL() {
+        return m_tyresSurfaceTemperatureFL;
+    }
+
+    public byte getTyresSurfaceTemperatureFR() {
+        return m_tyresSurfaceTemperatureFR;
+    }
+
+
+
+    public byte getTyresInnerTemperatureRL() {
+        return m_tyresInnerTemperatureRL;
+    }
+
+    public byte getTyresInnerTemperatureRR() {
+        return m_tyresInnerTemperatureRR;
+    }
+
+    public byte getTyresInnerTemperatureFL() {
+        return m_tyresInnerTemperatureFL;
+    }
+
+    public byte getTyresInnerTemperatureFR() {
+        return m_tyresInnerTemperatureFR;
+    }
+
+
+
+
+    public short getEngineTemperature() {
+        return m_engineTemperature;
+    }
+
+
+
+    public float getM_tyresPressureRL() {
+        return m_tyresPressureRL;
+    }
+
+    public float getM_tyresPressureRR() {
+        return m_tyresPressureRR;
+    }
+
+    public float getM_tyresPressureFL() {
+        return m_tyresPressureFL;
+    }
+
+    public float getM_tyresPressureFR() {
+        return m_tyresPressureFR;
+    }
+
+
+
+    public byte getM_surfaceTypeRL() {
+        return m_surfaceTypeRL;
+    }
+
+    public byte getM_surfaceTypeRR() {
+        return m_surfaceTypeRR;
+    }
+
+    public byte getM_surfaceTypeFL() {
+        return m_surfaceTypeFL;
+    }
+
+    public byte getM_surfaceTypeFR() {
+        return m_surfaceTypeFR;
+    }
 
     public static short toShort(byte [] data, int i){
         data = Arrays.copyOfRange(data,i,i+2);  // 1 2 3

@@ -11,14 +11,14 @@ public class Accelleration {
         byte[] data = packet.getData();
         Header header = new Header();
         header.loadInfo(data);
-        CarTelemetry t1 = new CarTelemetry();
+        CarTelemetry t1 = new CarTelemetry(header.getPlayerIndex());
 
         while (true){
             server.receive(packet);
             data = packet.getData();
             header.loadInfo(data);
             if(header.getID() == 6){
-                t1.loadInfo(data,header.getPlayerIndex());
+                t1.loadInfo(data);
                 System.out.println(t1.m_speed);
             }
         }

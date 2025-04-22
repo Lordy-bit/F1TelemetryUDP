@@ -24,8 +24,8 @@ public class Server {
             header.loadInfo(data);
         }
 
-        CarTelemetry t1 = new CarTelemetry();
-        t1.loadInfo(data,header.getPlayerIndex());
+        CarTelemetry t1 = new CarTelemetry(header.getPlayerIndex());
+        t1.loadInfo(data);
         t1.printInfo();
 
         while (header.getID() != 4){
