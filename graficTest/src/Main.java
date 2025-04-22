@@ -4,6 +4,7 @@ import java.awt.event.*;
 
 public class Main {
     public static void main(String[] args) {
+        int carIndex = 69;
         SwingUtilities.invokeLater(() -> {
             TelemetryGUI gui = new TelemetryGUI(carIndex);
             gui.setSize(500, 400);

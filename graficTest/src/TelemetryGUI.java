@@ -56,7 +56,9 @@ public class TelemetryGUI extends JFrame {
         Timer timer = new Timer(10, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 updateGUI();
+                ct.updateValues(); // ora per testing
             }
         });
+        timer.start();
     }
 }
