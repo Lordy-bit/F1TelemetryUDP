@@ -28,7 +28,7 @@ public class Server {
 
 
 
-        Timer timer3 = new Timer(-1, new ActionListener() {
+        Timer timer3 = new Timer(5, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
                     server.receive(packet);
@@ -40,7 +40,7 @@ public class Server {
                 if(header.getID() == 6){
                     cl.loadInfo(data);
                 }
-
+                System.out.println(header.getM_sessionTime());
             }
         });
         timer3.start();

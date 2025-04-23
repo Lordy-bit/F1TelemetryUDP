@@ -65,7 +65,7 @@ public class TelemetryGUI extends JFrame {
     }
 
     private void startUpdater() {
-        Timer timer = new Timer(-1, new ActionListener() {
+        Timer timer = new Timer(5, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 updateGUI();
             }
