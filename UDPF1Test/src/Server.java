@@ -1,58 +1,49 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
 public class Server {
+    static byte [] data;
     public static void main(String[] args) throws IOException {
         DatagramSocket server = new DatagramSocket(20777);
         byte[] event = new byte[1257];
         DatagramPacket packet = new DatagramPacket(event, event.length);
         server.receive(packet);
-        byte[] data = packet.getData();
+        data = packet.getData();
         Header header = new Header();
         header.loadAndprintInfo(data);
 
-      // for (int i = 0; i < data.length; i++) {
-      //     System.out.println(data[i]);
-      // }
+        CarTelemetry cl = new CarTelemetry(header.getPlayerIndex());
+        SwingUtilities.invokeLater(() -> {
+            TelemetryGUI gui = new TelemetryGUI(cl);
+            gui.setSize(500, 400);
+            gui.setResizable(false);
+            gui.setLocationRelativeTo(null);
+            gui.setVisible(true);
+        });
 
 
-        while (header.getID() != 6){
-            server.receive(packet);
-            data = packet.getData();
-            header.loadInfo(data);
+
+        Timer timer3 = new Timer(-1, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    server.receive(packet);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                data = packet.getData();
+                header.loadInfo(data);
+                if(header.getID() == 6){
+                    cl.loadInfo(data);
+                }
+
+            }
+        });
+        timer3.start();
         }
 
-        CarTelemetry t1 = new CarTelemetry(header.getPlayerIndex());
-        t1.loadInfo(data);
-        t1.printInfo();
-
-        while (header.getID() != 4){
-            server.receive(packet);
-            data = packet.getData();
-            header.loadInfo(data);
-        }
-        System.out.println("");
-        header.printInfo();
-        System.out.println("");
-        Participant player = new Participant(header.getPlayerIndex());
-        player.loadInfo(data);
-        player.printInfo();
-
-        System.out.println("");
-        Participant p1 = new Participant(3);
-        Participant p2 = new Participant(1);
-        Participant p3 = new Participant(0);
-        p1.loadInfo(data);
-        p2.loadInfo(data);
-        p3.loadInfo(data);
-        p1.printInfo();
-        System.out.println("");
-        p2.printInfo();
-        System.out.println("");
-        p3.printInfo();
-
-
-    }
 }
