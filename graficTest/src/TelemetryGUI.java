@@ -31,6 +31,7 @@ public class TelemetryGUI extends JFrame {
         addJLabels(labels, pane);
 
         startUpdater();
+        //startTestValueUpdate();
     }
 
     private void addJLabels(JLabel[] labels, Container pane) {
@@ -39,20 +40,22 @@ public class TelemetryGUI extends JFrame {
         }
         for (int i = 0; i < labels.length; i ++) {
             add(labels[i], pane);
+            labels[i].setAlignmentX(Component.CENTER_ALIGNMENT);
+            labels[i].setAlignmentY(Component.CENTER_ALIGNMENT);
             labels[i].setVisible(true);
         }
     }
 
     private void setSpeed(short speed) {
-        Jspeed.setText("" + speed);
+        Jspeed.setText(speed + " km/h");
     }
 
     private void setGear(byte gear) {
-        Jgear.setText("" + gear);
+        Jgear.setText("gear " + gear);
     }
 
     private void setRpm(short rpm) {
-        Jrpm.setText("" + rpm);
+        Jrpm.setText(rpm + " rpm");
     }
 
     private void updateGUI() {
@@ -65,9 +68,17 @@ public class TelemetryGUI extends JFrame {
         Timer timer = new Timer(17, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 updateGUI();
-                ct.updateValues(); // ora per testing
             }
         });
         timer.start();
+    }
+
+    private void startTestValueUpdate() {
+        Timer timerTest = new Timer(700, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ct.updateValues();
+            }
+        });
+        timerTest.start();
     }
 }
