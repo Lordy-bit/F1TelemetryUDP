@@ -15,23 +15,32 @@ public class TelemetryGUI extends JFrame {
     }
 
     private void init() {
+        //pane
+        Container pane = getContentPane();
+
         //window
         setTitle("Test");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+        setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
 
         //speed, gear and RPM labels
         Jspeed = new JLabel("0");
         Jgear = new JLabel("1");
         Jrpm = new JLabel("0");
-        add(Jspeed);
-        add(Jgear);
-        add(Jrpm);
-        Jspeed.setVisible(true);
-        Jgear.setVisible(true);
-        Jrpm.setVisible(true);
+        JLabel[] labels = new JLabel[]{Jspeed, Jgear, Jrpm};
+        addJLabels(labels, pane);
 
         startUpdater();
+    }
+
+    private void addJLabels(JLabel[] labels, Container pane) {
+        if (labels == null) {
+            return;
+        }
+        for (int i = 0; i < labels.length; i ++) {
+            add(labels[i], pane);
+            labels[i].setVisible(true);
+        }
     }
 
     private void setSpeed(short speed) {
@@ -53,7 +62,7 @@ public class TelemetryGUI extends JFrame {
     }
 
     private void startUpdater() {
-        Timer timer = new Timer(10, new ActionListener() {
+        Timer timer = new Timer(17, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 updateGUI();
                 ct.updateValues(); // ora per testing
