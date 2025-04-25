@@ -13,9 +13,9 @@ public class Server {
         Header header = new Header();
 
         CarTelemetry cl = new CarTelemetry(19); //header.getPlayerIndex());
-
         //gui
         SwingUtilities.invokeLater(() -> {
+            System.setProperty("sun.java2d.uiScale","1.0");
             Dashboard gui = new Dashboard(cl);
             gui.start();
         });

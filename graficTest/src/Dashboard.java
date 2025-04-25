@@ -18,7 +18,7 @@ public class Dashboard extends JFrame {
     private void init() {
         //pane
         Container pane = getContentPane();
-        pane.setBackground(Color.blue);
+        pane.setBackground(new Color(6, 8, 20));
 
         //window
         setTitle("Test");
@@ -36,11 +36,17 @@ public class Dashboard extends JFrame {
         startUpdater();
     }
 
+
     public void start() {
         startUpdater();
         setSize(500, 400);
         setResizable(false);
-        setLocationRelativeTo(null);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int)screenSize.getWidth();
+        int height = (int)screenSize.getHeight();
+        System.out.println(width);
+        System.out.println(height);
+        setLocation(width-500, height-400);
         setVisible(true);
     }
 
@@ -49,7 +55,8 @@ public class Dashboard extends JFrame {
             return;
         }
         for (JLabel label : labels) {
-            add(label, pane);
+            pane.add(label);
+            //dlabel.setForeground(Color.white);
             label.setAlignmentX(Component.CENTER_ALIGNMENT);
             label.setAlignmentY(Component.CENTER_ALIGNMENT);
             label.setVisible(true);
