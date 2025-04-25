@@ -23,7 +23,7 @@ public class Dashboard extends JFrame {
         //window
         setTitle("Test");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
 
         //speed, gear and RPM labels
         Jspeed = new JLabel("69");
