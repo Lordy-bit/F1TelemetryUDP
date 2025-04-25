@@ -18,8 +18,7 @@ public class Dashboard extends JFrame {
     private void init() {
         //pane
         Container pane = getContentPane();
-        JPanel bg = new JPanel();
-        bg.setBackground(Color.blue);
+        pane.setBackground(Color.blue);
 
         //window
         setTitle("Test");
