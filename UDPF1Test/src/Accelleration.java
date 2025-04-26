@@ -19,7 +19,7 @@ public class Accelleration {
             header.loadInfo(data);
             if(header.getID() == 6){
                 t1.loadInfo(data);
-                System.out.println(t1.m_speed);
+                System.out.println(t1.getSpeed());
             }
         }
 
