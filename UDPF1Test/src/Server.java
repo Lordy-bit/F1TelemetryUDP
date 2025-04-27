@@ -25,7 +25,7 @@ public class Server {
             gui.setLocationRelativeTo(null);
             gui.setVisible(true);
         });
-
+        LapData ld = new LapData(header.getPlayerIndex());
 
 
         Timer timer3 = new Timer(5, new ActionListener() {
@@ -40,7 +40,13 @@ public class Server {
                 if(header.getID() == 6){
                     cl.loadInfo(data);
                 }
-                System.out.println(header.getM_sessionTime());
+                if(header.getID() == 2){
+                    ld.loadInfo(data);
+                    System.out.println("BS1: "+ld.getBestSector1TimeInMS()+"\t"+"BS2: "+ld.getBestSector2TimeInMS()+"\t"+"BS3: "+ld.getBestSector3TimeInMS());
+                    System.out.println("last lap: "+ld.getLastLapTimeInMS());
+                    System.out.println("S: "+ld.getSector());
+                }
+
             }
         });
         timer3.start();
