@@ -83,8 +83,8 @@ public class LapData {
             lastS1 = m_sector1TimeInMS;
         }
 
-        if(m_bestSector1TimeInMS <= 0 || m_sector1TimeInMS < m_bestSector1TimeInMS && m_sector1TimeInMS != 0){
-            m_bestSector1TimeInMS = m_sector1TimeInMS;
+        if(m_bestSector1TimeInMS <= 0 || lastS1 < m_bestSector1TimeInMS && lastS1 != 0){
+            m_bestSector1TimeInMS = lastS1;
         }
 
         m_sector2TimeInMS = (short)Math.abs(toShort(data, 34+mul));
@@ -93,8 +93,8 @@ public class LapData {
             lastS2 = m_sector2TimeInMS;
         }
 
-        if(m_bestSector2TimeInMS <= 0 || m_sector2TimeInMS < m_bestSector2TimeInMS && m_sector2TimeInMS != 0){
-            m_bestSector2TimeInMS = m_sector2TimeInMS;
+        if(m_bestSector2TimeInMS <= 0 || lastS2 < m_bestSector2TimeInMS && lastS2 != 0){
+            m_bestSector2TimeInMS = lastS2;
         }
 
         m_lapDistance = toFloat(data,36+mul);
@@ -131,6 +131,17 @@ public class LapData {
         }
 
         m_optimalLapTimeMS = m_bestSector1TimeInMS+m_bestSector2TimeInMS+m_bestSector3TimeInMS;
+    }
+
+    public void clear(){
+        m_bestLapTimeInMS = 0;
+        m_optimalLapTimeMS = 0;
+        m_bestSector1TimeInMS = 0;
+        m_bestSector2TimeInMS = 0;
+        m_bestSector3TimeInMS = 0;
+        lastS1 = 0;
+        lastS2 = 0;
+        m_sector3TimeInMS = 0;
     }
 
     public int getLastLapTimeInMS() {
