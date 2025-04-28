@@ -71,7 +71,7 @@ public class LapData {
 
         m_lastLapTimeInMS = toInt(data,24+mul);
 
-        if(m_bestLapTimeInMS <= 0 || m_lastLapTimeInMS < m_bestLapTimeInMS && m_lastLapTimeInMS != 0){
+        if(m_bestLapTimeInMS == 0 || m_lastLapTimeInMS < m_bestLapTimeInMS && m_lastLapTimeInMS > 0){
             m_bestLapTimeInMS = m_lastLapTimeInMS;
         }
 
@@ -83,7 +83,7 @@ public class LapData {
             lastS1 = m_sector1TimeInMS;
         }
 
-        if(m_bestSector1TimeInMS <= 0 || lastS1 < m_bestSector1TimeInMS && lastS1 != 0){
+        if(m_bestSector1TimeInMS == 0 && lastS1 >= 0 || lastS1 < m_bestSector1TimeInMS && lastS1 > 0){
             m_bestSector1TimeInMS = lastS1;
         }
 
@@ -93,7 +93,7 @@ public class LapData {
             lastS2 = m_sector2TimeInMS;
         }
 
-        if(m_bestSector2TimeInMS <= 0 || lastS2 < m_bestSector2TimeInMS && lastS2 != 0){
+        if(m_bestSector2TimeInMS == 0 && lastS2 >= 0 || lastS2 < m_bestSector2TimeInMS && lastS2 > 0){
             m_bestSector2TimeInMS = lastS2;
         }
 
@@ -126,7 +126,7 @@ public class LapData {
             m_sector3TimeInMS = (short)(m_lastLapTimeInMS-(lastS1+lastS2));
         }
 
-        if(m_bestSector3TimeInMS <= 0 || m_sector3TimeInMS < m_bestSector3TimeInMS && m_sector3TimeInMS != 0){
+        if(m_bestSector3TimeInMS == 0 && m_sector3TimeInMS >= 0 || m_sector3TimeInMS < m_bestSector3TimeInMS && m_sector3TimeInMS > 0){
             m_bestSector3TimeInMS = m_sector3TimeInMS;
         }
 

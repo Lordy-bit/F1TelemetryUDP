@@ -25,7 +25,11 @@ public class Server {
             gui.setLocationRelativeTo(null);
             gui.setVisible(true);
         });
+
+
         LapData ld = new LapData(header.getPlayerIndex());
+        Event ev = new Event();
+        Event.FastestLap fl = ev.new FastestLap();
 
 
         Timer timer3 = new Timer(5, new ActionListener() {
@@ -37,6 +41,17 @@ public class Server {
                 }
                 data = packet.getData();
                 header.loadInfo(data);
+
+                if(header.getID() == 3){
+                    ev.loadEventCode(data);
+
+                    if(ev.getEventCode().equals(fl.getEventCode())){
+                        fl.loadInfo(data);
+                        System.out.println("New fastest lap: "+fl.getLapTime());
+                    }
+
+                }
+
                 if(header.getID() == 6){
                     cl.loadInfo(data);
                 }
