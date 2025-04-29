@@ -122,7 +122,7 @@ public class LapData {
         m_timeTrialRivalCarIdx = data[971];
 
 
-        if(m_sector == 0){
+        if(m_sector == 0 && lastS1 > 0 && lastS2 > 0){
             m_sector3TimeInMS = (short)(m_lastLapTimeInMS-(lastS1+lastS2));
         }
 
@@ -130,7 +130,9 @@ public class LapData {
             m_bestSector3TimeInMS = m_sector3TimeInMS;
         }
 
-        m_optimalLapTimeMS = m_bestSector1TimeInMS+m_bestSector2TimeInMS+m_bestSector3TimeInMS;
+        if(m_bestSector1TimeInMS > 0 && m_bestSector2TimeInMS > 0 && m_bestSector3TimeInMS > 0) {
+            m_optimalLapTimeMS = m_bestSector1TimeInMS + m_bestSector2TimeInMS + m_bestSector3TimeInMS;
+        }
     }
 
     public void clear(){
@@ -284,6 +286,16 @@ public class LapData {
 
     public short getLastS2() {
         return lastS2;
+    }
+
+    public String timeToString(int timeInMS){
+        int m = timeInMS/60000;
+        float s = (float) (timeInMS - (60000 * m)) /1000;
+        String timeStr = m+":";
+        if(s<10){
+            timeStr = timeStr+"0";
+        }
+        return timeStr+s;
     }
 
 

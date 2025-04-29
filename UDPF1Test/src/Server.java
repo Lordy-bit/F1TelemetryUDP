@@ -44,10 +44,9 @@ public class Server {
 
                 if(header.getID() == 3){
                     ev.loadEventCode(data);
-
-                    if(ev.getEventCode().equals(fl.getEventCode())){
+                    if(fl.getEventCode().equals(ev.getEventCode())){
                         fl.loadInfo(data);
-                        System.out.println("New fastest lap: "+fl.getLapTime());
+                        System.out.println("FASTEST LAP: "+fl.getLapTime());
                     }
 
                 }
@@ -58,7 +57,9 @@ public class Server {
                 if(header.getID() == 2){
                     ld.loadInfo(data);
                     System.out.println("BS1: "+ld.getBestSector1TimeInMS()+"\t"+"BS2: "+ld.getBestSector2TimeInMS()+"\t"+"BS3: "+ld.getBestSector3TimeInMS());
-                    System.out.println("last lap: "+ld.getLastLapTimeInMS());
+                    System.out.println("last lap: "+ld.timeToString(ld.getLastLapTimeInMS()));
+                    System.out.println("best lap: "+ld.timeToString(ld.getBestLapTimeInMS()));
+                    System.out.println("optimal: "+ld.timeToString(ld.getOptimalLapTimeMS()));
                     System.out.println("S: "+ld.getSector());
                 }
 

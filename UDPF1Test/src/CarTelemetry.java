@@ -46,6 +46,9 @@ public class CarTelemetry {
     private byte      m_surfaceTypeFL;
     private byte      m_surfaceTypeFR;
 
+    //functional
+    private float prev_steer;
+
     public CarTelemetry (int index){
         this.index = index;
     }
@@ -63,6 +66,7 @@ public class CarTelemetry {
 
         m_speed = toShort(data,24+mul);
         m_throttle = toFloat(data,26+mul);
+        prev_steer = m_steer;
         m_steer = toFloat(data,30+mul);
         m_brake = toFloat(data,34+mul);
         m_clutch = data[38];
@@ -122,6 +126,16 @@ public class CarTelemetry {
     public float getSteer(){
         return m_steer;
     }
+
+    public double getSteerInDeg() {
+        return Math.acos(m_steer);
+    }
+
+    public double getSteerDiff(){
+        return prev_steer-m_steer;
+    }
+
+    public double getSteerDiffInDeg(){return Math.acos(getSteerDiff());}
 
     public float getBrake(){
         return m_brake;
