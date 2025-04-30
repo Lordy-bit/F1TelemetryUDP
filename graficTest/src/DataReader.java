@@ -4,23 +4,19 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class DataReader {
-    private BufferedReader reader;
+    private FileReader reader;
 
     DataReader(String file) throws FileNotFoundException {
-        reader = new BufferedReader(new FileReader(file));
+        reader = new FileReader(file);
     }
 
-    public byte[] read(int line, int delay) throws IOException {
-            byte[] data = new byte [1464];
-            String textLine = reader.readLine();
-            if (textLine == null) {
-                System.out.println("ho finito di leggere il file");
-            }
-            for (int i = 0; i < textLine.length(); i++){
-                data [i] = (byte)textLine.charAt(i);
-            }
-            sleep(delay);
-            return data;
+    public byte[] read(int delay) throws IOException {
+        byte[] data = new byte [1464];
+        for (int i = 0; i < data.length; i++) {
+            data[i] = (byte)reader.read();
+        }
+        sleep(delay);
+        return data;
     }
 
     public static void sleep(int ms) {

@@ -23,10 +23,9 @@ public class Server {
         //data updater
         Timer timer3 = new Timer(0, new ActionListener() {
             DataReader dr = new DataReader("data.txt");
-            int li = 0;
             public void actionPerformed(ActionEvent e) {
                 try {
-                    data = dr.read(li, 0);
+                    data = dr.read(0);
                 } catch (IOException ops) {
                     System.out.println("ops");
                 }
@@ -34,7 +33,6 @@ public class Server {
                 if (header.getID() == 6) { //&& header.getM_packetFormat() == 2021) {
                     cl.loadInfo(data);
                 }
-                li++;
             }
         });
         timer3.start();
