@@ -20,10 +20,6 @@ public class Header {
     public Header(){
     }
 
-    public short getM_packetFormat() {
-        return m_packetFormat;
-    }
-
     public void loadInfo(byte [] data){
         m_packetFormat = toShort(data,0);  //0 & 1
         m_gameMajorVersion = data [2];

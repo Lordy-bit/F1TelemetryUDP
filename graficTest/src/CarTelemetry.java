@@ -3,55 +3,60 @@ import java.nio.ByteOrder;
 import java.util.Arrays;
 
 public class CarTelemetry {
-    int index;
+    private int index;
     // Note: All wheel arrays have the following order:
     // RL, RR, FL, FR
 
 
-    short     m_speed;                        // Speed of car in kilometres per hour
-    float     m_throttle;                    // Amount of throttle applied (0.0 to 1.0)
-    float     m_steer;                       // Steering (-1.0 (full lock left) to 1.0 (full lock right))
-    float     m_brake;                       // Amount of brake applied (0.0 to 1.0)
-    byte      m_clutch;                       // Amount of clutch applied (0 to 100)
-    byte      m_gear;                        // Gear selected (1-8, N=0, R=-1)
-    short     m_engineRPM;                    // Engine RPM
-    byte      m_drs;                          // 0 = off, 1 = on
-    byte      m_revLightsPercent;             // Rev lights indicator (percentage)
-    short     m_revLightsBitValue;            // Rev lights (bit 0 = leftmost LED, bit 14 = rightmost LED)
+    private short     m_speed;                        // Speed of car in kilometres per hour
+    private float     m_throttle;                    // Amount of throttle applied (0.0 to 1.0)
+    private float     m_steer;                       // Steering (-1.0 (full lock left) to 1.0 (full lock right))
+    private float     m_brake;                       // Amount of brake applied (0.0 to 1.0)
+    private byte      m_clutch;                       // Amount of clutch applied (0 to 100)
+    private byte      m_gear;                        // Gear selected (1-8, N=0, R=-1)
+    private short     m_engineRPM;                    // Engine RPM
+    private byte      m_drs;                          // 0 = off, 1 = on
+    private byte      m_revLightsPercent;             // Rev lights indicator (percentage)
+    private short     m_revLightsBitValue;            // Rev lights (bit 0 = leftmost LED, bit 14 = rightmost LED)
 
-    short     m_brakesTemperatureRL;          // Brakes temperature (celsius)
-    short     m_brakesTemperatureRR;
-    short     m_brakesTemperatureFL;
-    short     m_brakesTemperatureFR;
+    private short     m_brakesTemperatureRL;          // Brakes temperature (celsius)
+    private short     m_brakesTemperatureRR;
+    private short     m_brakesTemperatureFL;
+    private short     m_brakesTemperatureFR;
 
-    byte      m_tyresSurfaceTemperatureRL;    // Tyres surface temperature (celsius)
-    byte      m_tyresSurfaceTemperatureRR;
-    byte      m_tyresSurfaceTemperatureFL;
-    byte      m_tyresSurfaceTemperatureFR;
+    private byte      m_tyresSurfaceTemperatureRL;    // Tyres surface temperature (celsius)
+    private byte      m_tyresSurfaceTemperatureRR;
+    private byte      m_tyresSurfaceTemperatureFL;
+    private byte      m_tyresSurfaceTemperatureFR;
 
-    byte      m_tyresInnerTemperatureRL;     // Tyres inner temperature (celsius)
-    byte      m_tyresInnerTemperatureRR;
-    byte      m_tyresInnerTemperatureFL;
-    byte      m_tyresInnerTemperatureFR;
+    private byte      m_tyresInnerTemperatureRL;     // Tyres inner temperature (celsius)
+    private byte      m_tyresInnerTemperatureRR;
+    private byte      m_tyresInnerTemperatureFL;
+    private byte      m_tyresInnerTemperatureFR;
 
-    short     m_engineTemperature;           // Engine temperature (celsius)
+    private short     m_engineTemperature;           // Engine temperature (celsius)
 
-    float     m_tyresPressureRL;            // Tyres pressure (PSI)
-    float     m_tyresPressureRR;
-    float     m_tyresPressureFL;
-    float     m_tyresPressureFR;
+    private float     m_tyresPressureRL;            // Tyres pressure (PSI)
+    private float     m_tyresPressureRR;
+    private float     m_tyresPressureFL;
+    private float     m_tyresPressureFR;
 
-    byte      m_surfaceTypeRL;               // Driving surface, see appendices
-    byte      m_surfaceTypeRR;
-    byte      m_surfaceTypeFL;
-    byte      m_surfaceTypeFR;
+    private byte      m_surfaceTypeRL;               // Driving surface, see appendices
+    private byte      m_surfaceTypeRR;
+    private byte      m_surfaceTypeFL;
+    private byte      m_surfaceTypeFR;
 
     public CarTelemetry (int index){
         this.index = index;
     }
 
+    public int getIndex() {
+        return index;
+    }
 
-
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
     public void loadInfo(byte [] data){
         int mul = 60*index;

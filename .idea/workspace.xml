@@ -5,20 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dec17dc0-0190-419f-9383-daee017dc2ea" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/graficTest/data.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graficTest/src/Accelleration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graficTest/src/DataReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graficTest/src/Event.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graficTest/src/FastestLap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graficTest/src/Header.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graficTest/src/LapData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graficTest/src/Participant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graficTest/src/Server.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graficTest/src/SpeedTrap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graficTest/src/StartLights.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graficTest/src/CarTelemetry.java" beforeDir="false" afterPath="$PROJECT_DIR$/graficTest/src/CarTelemetry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graficTest/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/graficTest/src/TelemetryGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/graficTest/src/Dashboard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graficTest/Resources/Formula1-Bold.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graficTest/src/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/graficTest/src/Dashboard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +44,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Informatica/F1TelemetryUDP/graficTest/src",
+    "last_opened_file_path": "C:/Informatica/F1TelemetryUDP/graficTest",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "settings.qodana"
   }
@@ -66,6 +54,55 @@
       <recent name="C:\Informatica\F1TelemetryUDP\graficTest\src" />
       <recent name="C:\Informatica\F1TelemetryUDP\graficTest" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="F1TelemetryUDP" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="F1TelemetryUDP" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="F1TelemetryUDP" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="F1TelemetryUDP" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

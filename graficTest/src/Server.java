@@ -31,13 +31,13 @@ public class Server {
                     System.out.println("ops");
                 }
                 header.loadInfo(data);
-                if (header.getM_packetFormat() == 2021 && header.getID() == 6) {
+                if (header.getID() == 6) { //&& header.getM_packetFormat() == 2021) {
                     cl.loadInfo(data);
                 }
                 li++;
             }
         });
         timer3.start();
-        }
+    }
 
 }
