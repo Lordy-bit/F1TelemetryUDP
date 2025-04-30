@@ -55,9 +55,6 @@ public class Dashboard extends JFrame {
     public Dashboard(String title, CarTelemetry ct) {
         this.ct = ct;
         init(title);
-        URL iconURL = getClass().getResource("C:\\Informatica\\F1TelemetryUDP\\graficTest\\src\\icon.png");
-        ImageIcon icon = new ImageIcon(iconURL);
-        setIconImage(icon.getImage());
     }
 
     private void init(String title) {

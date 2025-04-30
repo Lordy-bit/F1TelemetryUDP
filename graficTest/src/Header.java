@@ -3,22 +3,20 @@ import java.nio.ByteOrder;
 import java.util.Arrays;
 
 public class Header {
-    private short    m_packetFormat;           // 2022
+    private short   m_packetFormat;            // 2022
     private byte    m_gameMajorVersion;        // Game major version - "X.00"
     private byte    m_gameMinorVersion;        // Game minor version - "1.XX"
     private byte    m_packetVersion;           // Version of this packet type, all start from 1
     private byte    m_packetId;                // Identifier for the packet type, see below
     private long    m_sessionUID;              // Unique identifier for the session
-    private float  m_sessionTime;              // Session timestamp
-    private int    m_frameIdentifier;          // Identifier for the frame the data was retrieved on
+    private float   m_sessionTime;             // Session timestamp
+    private int     m_frameIdentifier;         // Identifier for the frame the data was retrieved on
     private byte    m_playerCarIndex;          // Index of player's car in the array
     private byte    m_secondaryPlayerCarIndex; // Index of secondary player's car in the array (splitscreen)
                                                // 255 if no second player
 
 
     //Header --> first 24 bytes of the packet
-    public Header(){
-    }
 
     public void loadInfo(byte [] data){
         m_packetFormat = toShort(data,0);  //0 & 1
@@ -51,16 +49,44 @@ public class Header {
         printInfo();
     }
 
+    public short getPacketFormat() {
+        return m_packetFormat;
+    }
+
+    public byte getGameMajorVersion() {
+        return m_gameMajorVersion;
+    }
+
+    public byte getGameMinorVersion() {
+        return m_gameMinorVersion;
+    }
+
+    public byte getPacketVersion() {
+        return m_packetVersion;
+    }
+
     public byte getID(){
         return m_packetId;
+    }
+
+    public long getSessionUID() {
+        return m_sessionUID;
+    }
+
+    public float getM_sessionTime() {
+        return m_sessionTime;
+    }
+
+    public int getFrameIdentifier() {
+        return m_frameIdentifier;
     }
 
     public byte getPlayerIndex(){
         return m_playerCarIndex;
     }
 
-    public float getM_sessionTime() {
-        return m_sessionTime;
+    public byte getSecondaryPlayerCarIndex() {
+        return m_secondaryPlayerCarIndex;
     }
 
     public static short toShort(byte [] data, int i){

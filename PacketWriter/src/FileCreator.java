@@ -19,7 +19,6 @@ public class FileCreator {
 
             FileWriter file = new FileWriter("data.txt");
             file.flush();
-            BufferedWriter writer = new BufferedWriter(file);
             String currentFormattedTime = LocalTime.now().format(dtf);
             System.out.println(currentFormattedTime);
             Scanner sc = new Scanner(System.in);
@@ -30,11 +29,11 @@ public class FileCreator {
                 server.receive(packet);
                 data = packet.getData();
                 for(byte b : data){
-                    writer.write(b);
+                    file.write(b);
                 }
-                writer.newLine();
+                file.write(10);
                 currentFormattedTime = LocalTime.now().format(dtf);
             }
-            writer.flush();
+            file.close();
     }
 }
