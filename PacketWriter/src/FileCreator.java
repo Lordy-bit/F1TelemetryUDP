@@ -23,7 +23,6 @@ public class FileCreator {
             System.out.println(currentFormattedTime);
             Scanner sc = new Scanner(System.in);
             String time = sc.nextLine();
-            Byte by =0;
 
             while(!time.equals(currentFormattedTime)){
                 server.receive(packet);
@@ -31,7 +30,6 @@ public class FileCreator {
                 for(byte b : data){
                     file.write(b);
                 }
-                file.write(10);
                 currentFormattedTime = LocalTime.now().format(dtf);
             }
             file.close();
