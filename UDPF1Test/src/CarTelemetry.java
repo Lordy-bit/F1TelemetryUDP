@@ -9,11 +9,11 @@ public class CarTelemetry {
 
 
     private short     m_speed;                        // Speed of car in kilometres per hour
-    private float     m_throttle;                    // Amount of throttle applied (0.0 to 1.0)
-    private float     m_steer;                       // Steering (-1.0 (full lock left) to 1.0 (full lock right))
-    private float     m_brake;                       // Amount of brake applied (0.0 to 1.0)
+    private float     m_throttle;                     // Amount of throttle applied (0.0 to 1.0)
+    private float     m_steer;                        // Steering (-1.0 (full lock left) to 1.0 (full lock right))
+    private float     m_brake;                        // Amount of brake applied (0.0 to 1.0)
     private byte      m_clutch;                       // Amount of clutch applied (0 to 100)
-    private byte      m_gear;                        // Gear selected (1-8, N=0, R=-1)
+    private byte      m_gear;                         // Gear selected (1-8, N=0, R=-1)
     private short     m_engineRPM;                    // Engine RPM
     private byte      m_drs;                          // 0 = off, 1 = on
     private byte      m_revLightsPercent;             // Rev lights indicator (percentage)
@@ -263,6 +263,15 @@ public class CarTelemetry {
 
     public byte getM_surfaceTypeFR() {
         return m_surfaceTypeFR;
+    }
+
+    public boolean innerTempsInWindow(int min, int max){
+        for (byte b : new byte[]{m_tyresInnerTemperatureFL,m_tyresInnerTemperatureFR,m_tyresInnerTemperatureRL,m_tyresInnerTemperatureRR}){
+            if (b < min && b > max){
+                return false;
+            }
+        }
+        return true;
     }
 
     public static short toShort(byte [] data, int i){
