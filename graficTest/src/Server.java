@@ -12,11 +12,12 @@ public class Server {
     public static void main(String[] args) throws IOException {
         Header header = new Header();
 
-        CarTelemetry cl = new CarTelemetry(19); //header.getPlayerIndex());
+        CarTelemetry cl = new CarTelemetry(header.getPlayerIndex());
+        LapData lp = new LapData(header.getPlayerIndex());
         //gui
         SwingUtilities.invokeLater(() -> {
             System.setProperty("sun.java2d.uiScale","1.0");
-            Dashboard gui = new Dashboard(cl);
+            Dashboard gui = new Dashboard(cl, lp);
             gui.start();
         });
 
