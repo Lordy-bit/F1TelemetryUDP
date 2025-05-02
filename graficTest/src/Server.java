@@ -12,8 +12,8 @@ public class Server {
     public static void main(String[] args) throws IOException {
         Header header = new Header();
 
-        CarTelemetry cl = new CarTelemetry(header.getPlayerIndex());
-        LapData lp = new LapData(header.getPlayerIndex());
+        CarTelemetry cl = new CarTelemetry(0); //when real match --> header.getPlayerIndex());
+        LapData lp = new LapData(0);//when real match --> header.getPlayerIndex());
         //gui
         SwingUtilities.invokeLater(() -> {
             System.setProperty("sun.java2d.uiScale","1.0");

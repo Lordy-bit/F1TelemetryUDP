@@ -20,6 +20,11 @@ public class Dashboard extends JFrame {
     private JLabel  JtyresInnerTemperatureRL;
     private JLabel  JtyresInnerTemperatureRR;
 
+    private JLabel  JtyresSurfaceTemperatureFL;
+    private JLabel  JtyresSurfaceTemperatureFR;
+    private JLabel  JtyresSurfaceTemperatureRL;
+    private JLabel  JtyresSurfaceTemperatureRR;
+
     //prima colonna
     private JLabel  JtyresPressureFL;
     private JLabel  JtyresPressureFR;
@@ -71,24 +76,30 @@ public class Dashboard extends JFrame {
         //components
 
         Jdrsls = new JPanel();
-        Jdrsls.setBackground(new Color(75,75,75));
+        Jdrsls.setBackground(Color.green);
         JrpmLow = new JPanel();
-        JrpmLow.setBackground(new Color(75, 75, 75));
+        JrpmLow.setBackground(Color.red);
         JrpmHigh = new JPanel();
-        JrpmHigh.setBackground(new Color(75, 75, 75));
-        JtyresInnerTemperatureFL = new JLabel("0");
-        JtyresInnerTemperatureFR = new JLabel("0");
-        JtyresInnerTemperatureRL = new JLabel("0");
-        JtyresInnerTemperatureRR = new JLabel("0");
-        JtyresPressureFL = new JLabel("0");
-        JtyresPressureFR = new JLabel("0");
-        JtyresPressureRL = new JLabel("0");
-        JtyresPressureRR = new JLabel("0");
-        Jspeed = new JLabel("0");
-        Jgear = new JLabel("0");
-        Jrpm = new JLabel("0");
-        Jbrake = new JLabel("0");
-        Jthrottle = new JLabel("0");
+        JrpmHigh.setBackground(Color.BLUE);
+        Jsteer = new JPanel();
+        Jsteer.setBackground(Color.yellow);
+        JtyresInnerTemperatureFL = new JLabel("0", SwingConstants.CENTER);
+        JtyresInnerTemperatureFR = new JLabel("0", SwingConstants.CENTER);
+        JtyresInnerTemperatureRL = new JLabel("0", SwingConstants.CENTER);
+        JtyresInnerTemperatureRR = new JLabel("0", SwingConstants.CENTER);
+        JtyresSurfaceTemperatureFL = new JLabel("0", SwingConstants.CENTER);
+        JtyresSurfaceTemperatureFR = new JLabel("0", SwingConstants.CENTER);
+        JtyresSurfaceTemperatureRL = new JLabel("0", SwingConstants.CENTER);
+        JtyresSurfaceTemperatureRR = new JLabel("0", SwingConstants.CENTER);
+        JtyresPressureFL = new JLabel("0", SwingConstants.CENTER);
+        JtyresPressureFR = new JLabel("0", SwingConstants.CENTER);
+        JtyresPressureRL = new JLabel("0", SwingConstants.CENTER);
+        JtyresPressureRR = new JLabel("0", SwingConstants.CENTER);
+        Jspeed = new JLabel("0", SwingConstants.CENTER);
+        Jgear = new JLabel("0", SwingConstants.CENTER);
+        Jrpm = new JLabel("0", SwingConstants.CENTER);
+        Jbrake = new JLabel("0", SwingConstants.CENTER);
+        Jthrottle = new JLabel("0", SwingConstants.CENTER);
         JLastLapInMS = new JLabel("nope");
         JbestLapInMS = new JLabel("nope");
         JoptimalLapInMS = new JLabel("nope");
@@ -114,6 +125,10 @@ public class Dashboard extends JFrame {
                 JtyresInnerTemperatureFR ,
                 JtyresInnerTemperatureRL,
                 JtyresInnerTemperatureRR,
+                JtyresSurfaceTemperatureFL,
+                JtyresSurfaceTemperatureFR ,
+                JtyresSurfaceTemperatureRL,
+                JtyresSurfaceTemperatureRR,
                 JtyresPressureFL,
                 JtyresPressureFR,
                 JtyresPressureRL,
@@ -127,14 +142,6 @@ public class Dashboard extends JFrame {
                 JbestLapInMS,
                 JoptimalLapInMS};
 
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridwidth = 3;
-        c.gridheight = 100;
-
-        //colonna 1
-        c.gridy = 1;
-        c.gridx = 1;
-
         //Initializing components
         Font customFont; //if it gives problem because not initialized, Font customFont = new JLabel.getFont();
         try {
@@ -146,7 +153,84 @@ public class Dashboard extends JFrame {
         for (int i = 0; i < labels.length; i++) {
             setUpLabel(labels[i], Color.pink, Color.white, customFont);
         }
+        Jdrsls.setVisible(true);
+        JrpmLow.setVisible(true);
+        JrpmHigh.setVisible(true);
+        Jsteer.setVisible(true);
+        //x --> in che colonna è
+        //y --> in che riga è
+        //w --> numero righe
+        //h --> numero colonne
+        //wx --> altezza
+        //wy --> larghezza
+
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH;
+        c.gridwidth = 1;
+        int row = 0;
+
+        c.gridx = 0;
+        c.gridy = row;
+        c.gridheight = 10;
+        c.weightx = 1.0;
+        c.weighty = 10.0;
+        add(Jdrsls, c);
+
+        c.gridx = 1;
+        c.gridy = 0;
+        c.gridheight = 10;
+        c.weighty = 10.0;
+        add(JrpmLow, c);
+
+        c.gridx = 2;
+        add(JrpmHigh, c);
+
+        row += 10;
+
+        c.gridx = 0;
+        c.gridy = row;
+        c.gridheight = 4;
+        c.weighty = 4.0;
+        JLabel tempsTitle = new JLabel("Temps:", SwingConstants.CENTER);
+        setUpLabel(tempsTitle, Color.BLUE, Color.WHITE, customFont);
+        add(tempsTitle, c);
+        row += 4;
+
+        JPanel row1 = new JPanel(new GridLayout(1, 2));
+        row1.add(JtyresInnerTemperatureFL);
+        row1.add(JtyresInnerTemperatureFR);
+
+        JPanel row2 = new JPanel(new GridLayout(1, 2));
+        row2.add(JtyresSurfaceTemperatureFL);
+        row2.add(JtyresSurfaceTemperatureFR);
+
+        JPanel row3 = new JPanel(new GridLayout(1, 2));
+        row3.add(JtyresInnerTemperatureRL);
+        row3.add(JtyresInnerTemperatureRR);
+
+        JPanel row4 = new JPanel(new GridLayout(1, 2));
+        row4.add(JtyresSurfaceTemperatureRL);
+        row4.add(JtyresSurfaceTemperatureRR);
+
+        for (JPanel pnl : new JPanel[]{ row1, row2, row3, row4 }) {
+            c.gridy = row;
+            c.gridheight = 4;
+            c.weighty = 4.0;
+            add(pnl, c);
+            row += 4;
+        }
+
+        int usedUnits = 10 + 10 + 10 + 4 + 16;
+        int remaining = 100 - usedUnits;
+
+        c.gridx = 0;
+        c.gridy = row;
+        c.gridwidth = 3;
+        c.gridheight = 1;
+        c.weighty = remaining;
+        add(Box.createVerticalStrut(0), c);
     }
+
 
     private void setUpLabel(JLabel label, Color bg, Color fg, Font f) {
         label.setOpaque(true);
@@ -156,104 +240,105 @@ public class Dashboard extends JFrame {
         label.setVisible(true);
     }
 
-    private void setSpeed(short speed) {
-        Jspeed.setText("" + speed);
+    private void setSpeed() {
+        Jspeed.setText("" + ct.getSpeed());
     }
 
-    private void setThrottle(float throttle) { Jthrottle.setText("" + throttle);}
+    private void setThrottle() { Jthrottle.setText("" + ct.getThrottle());}
 
-    private void setSteer(float steer) { ;} // for now it does nothing
+    private void setSteer() { ;} // for now it does nothing
 
-    private void setBrake(float brake) { Jbrake.setText("" + brake);}
+    private void setBrake() { Jbrake.setText("" + ct.getBrake());}
 
-    private void setDrsls(boolean isOn) {
-        if (isOn) {
+    private void setDrsls() {
+        if (ct.DRSisOn()) {
             Jdrsls.setBackground(new Color(24, 203, 0));
         }
         Jdrsls.setBackground(new Color(75, 75, 75));
     }
 
-    private void setTyresSurfaceTemperatureRL(byte tyresSurfaceTemperatureRL) {
-        JtyresInnerTemperatureFL.setText("" + tyresSurfaceTemperatureRL);
+    private void setTyresSurfaceTemperatureRL() {
+        JtyresSurfaceTemperatureRL.setText("" + ct.getTyresSurfaceTemperatureRL());
     }
-    private void setTyresSurfaceTemperatureRR(byte tyresSurfaceTemperatureRR) {
-        JtyresInnerTemperatureFL.setText("" + tyresSurfaceTemperatureRR);
+    private void setTyresSurfaceTemperatureRR() {
+        JtyresSurfaceTemperatureRR.setText("" + ct.getTyresSurfaceTemperatureRR());
     }
-    private void setTyresSurfaceTemperatureFL(byte tyresSurfaceTemperatureFL) {
-        JtyresInnerTemperatureFL.setText("" + tyresSurfaceTemperatureFL);
+    private void setTyresSurfaceTemperatureFL() {
+        JtyresSurfaceTemperatureFL.setText("" + ct.getTyresSurfaceTemperatureFL());
     }
-    private void setTyresSurfaceTemperatureFR(byte tyresSurfaceTemperatureFR) {
-        JtyresInnerTemperatureFL.setText("" + tyresSurfaceTemperatureFR);
-    }
-
-    private void setTyresInnerTemperatureRL(byte tyresInnerTemperatureRL) {
-        JtyresInnerTemperatureRL.setText("" + tyresInnerTemperatureRL);
-    }
-    private void setTyresInnerTemperatureRR(byte tyresInnerTemperatureRR) {
-        JtyresInnerTemperatureRR.setText("" + tyresInnerTemperatureRR);
-    }
-    private void setTyresInnerTemperatureFL(byte tyresInnerTemperatureFL) {
-        JtyresInnerTemperatureFL.setText("" + tyresInnerTemperatureFL);
-    }
-    private void setTyresInnerTemperatureFR(byte tyresInnerTemperatureFR) {
-        JtyresInnerTemperatureFR.setText("" + tyresInnerTemperatureFR);
+    private void setTyresSurfaceTemperatureFR() {
+        JtyresSurfaceTemperatureFR.setText("" + ct.getTyresSurfaceTemperatureFR());
     }
 
-    private void setGear(byte gear) {
-        if (gear == -1) {
+    private void setTyresInnerTemperatureRL() {
+        JtyresInnerTemperatureRL.setText("" + ct.getTyresInnerTemperatureRL());
+    }
+    private void setTyresInnerTemperatureRR() {
+        JtyresInnerTemperatureRR.setText("" + ct.getTyresInnerTemperatureRR());
+    }
+    private void setTyresInnerTemperatureFL() {
+        JtyresInnerTemperatureFL.setText("" + ct.getTyresInnerTemperatureFL());
+    }
+    private void setTyresInnerTemperatureFR() {
+        JtyresInnerTemperatureFR.setText("" + ct.getTyresInnerTemperatureFR());
+    }
+
+    private void setGear() {
+        byte g = ct.getGear();
+        if (g == -1) {
             Jgear.setText("N");
             return;
         }
-        if (gear == 0) {
+        if (g == 0) {
             Jgear.setText("R");
             return;
         }
-        Jgear.setText("" + gear);
+        Jgear.setText("" + g);
     }
 
-    private void setTyresPressureRL(float tyresPressureRL) {
-        JtyresPressureRL.setText("" + tyresPressureRL);
+    private void setTyresPressureRL() {
+        JtyresPressureRL.setText("" + ct.getM_tyresPressureRL());
     }
 
-    private void setTyresPressureRR(float tyresPressureRR) {
-        JtyresPressureRR.setText("" + tyresPressureRR);
+    private void setTyresPressureRR() {
+        JtyresPressureRR.setText("" + ct.getM_tyresPressureRR());
     }
 
-    private void setTyresPressureFL(float tyresPressureFL) {
-        JtyresPressureFL.setText("" + tyresPressureFL);
+    private void setTyresPressureFL() {
+        JtyresPressureFL.setText("" + ct.getM_tyresPressureFL());
     }
 
-    private void setTyresPressureFR(float tyresPressureFR) {
-        JtyresPressureFR.setText("" + tyresPressureFR);
+    private void setTyresPressureFR() {
+        JtyresPressureFR.setText("" + ct.getM_tyresPressureFR());
     }
 
-    private void setLastLapTimeInMS(int lastLapTimeInMS) { JLastLapInMS.setText(ld.timeToString(lastLapTimeInMS));}
+    private void setLastLapTimeInMS() { JLastLapInMS.setText(ld.timeToString(ld.getLastLapTimeInMS()));}
 
-    private void setBestLapTimeInMS(int bestLapInMS) { JbestLapInMS.setText(ld.timeToString(bestLapInMS));}
+    private void setBestLapTimeInMS() { JbestLapInMS.setText(ld.timeToString(ld.getBestLapTimeInMS()));}
 
-    private void setOptiLapTimeInMS(int optimalLapInMS) { JoptimalLapInMS.setText(ld.timeToString(optimalLapInMS));}
+    private void setOptiLapTimeInMS() { JoptimalLapInMS.setText(ld.timeToString(ld.getOptimalLapTimeMS()));}
 
-    private void setRpm(short rpm) {
-        Jrpm.setText(rpm + " RPM");
+    private void setRpm() {
+        Jrpm.setText(ct.getEngineRPM() + " RPM");
     }
 
     private void updateGUI() {
-        setSpeed(ct.getSpeed());
-        setGear(ct.getGear());
-        setRpm(ct.getEngineRPM());
-        setTyresInnerTemperatureFL(ct.getTyresInnerTemperatureFL());
-        setTyresInnerTemperatureFR(ct.getTyresInnerTemperatureFR());
-        setTyresInnerTemperatureRL(ct.getTyresInnerTemperatureRL());
-        setTyresInnerTemperatureRR(ct.getTyresInnerTemperatureRR());
-        setTyresPressureFL(ct.getM_tyresPressureFL());
-        setTyresPressureFR(ct.getM_tyresPressureFR());
-        setTyresPressureRL(ct.getM_tyresPressureRL());
-        setTyresPressureRR(ct.getM_tyresPressureRR());
-        setBrake(ct.getBrake());
-        setThrottle(ct.getThrottle());
-        setLastLapTimeInMS(ld.getLastLapTimeInMS());
-        setBestLapTimeInMS(ld.getBestLapTimeInMS());
-        setOptiLapTimeInMS(ld.getOptimalLapTimeMS());
+        setSpeed();
+        setGear();
+        setRpm();
+        setTyresInnerTemperatureFL();
+        setTyresInnerTemperatureFR();
+        setTyresInnerTemperatureRL();
+        setTyresInnerTemperatureRR();
+        setTyresPressureFL();
+        setTyresPressureFR();
+        setTyresPressureRL();
+        setTyresPressureRR();
+        setBrake();
+        setThrottle();
+        setLastLapTimeInMS();
+        setBestLapTimeInMS();
+        setOptiLapTimeInMS();
     }
 
     private void startUpdater() {
