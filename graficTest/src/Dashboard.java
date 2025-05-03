@@ -104,9 +104,9 @@ public class Dashboard extends JFrame {
         Jspeed = new JLabel("0", SwingConstants.CENTER);
         Jgear = new JLabel("0", SwingConstants.CENTER);
         Jrpm = new JLabel("0", SwingConstants.CENTER);
-        JLastLapInMS = new JLabel("nope");
-        JbestLapInMS = new JLabel("nope");
-        JoptimalLapInMS = new JLabel("nope");
+        JLastLapInMS = new JLabel("nope", SwingConstants.CENTER);
+        JbestLapInMS = new JLabel("nope", SwingConstants.CENTER);
+        JoptimalLapInMS = new JLabel("nope", SwingConstants.CENTER);
         Jdrsls.setVisible(true);
         JrpmLow.setVisible(true);
         JrpmHigh.setVisible(true);
@@ -132,7 +132,8 @@ public class Dashboard extends JFrame {
 
     public void start() {
         startUpdater();
-        setSize(600, 600);
+        setSize(900, 600);
+        setMinimumSize(new Dimension(900, 600));
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -165,10 +166,23 @@ public class Dashboard extends JFrame {
         } catch (IOException | FontFormatException e) {
             throw new RuntimeException(e);
         }
+
         customFont = customFont.deriveFont(Font.PLAIN, 32f); // Adjust style and size as needed
         for (int i = 0; i < labels.length; i++) {
             setUpLabel(labels[i], Color.PINK, Color.white, customFont);
         }
+        FontMetrics fm = Jspeed.getFontMetrics(Jspeed.getFont());
+        int width = fm.stringWidth("8888"); // la combinazione più larga che può apparire
+        int height = fm.getHeight();
+        Jspeed.setPreferredSize(new Dimension(width, height));
+
+        fm = Jrpm.getFontMetrics(Jrpm.getFont());
+        width = fm.stringWidth("888888 RPM"); // la combinazione più larga che può apparire
+        height = fm.getHeight();
+        Jrpm.setPreferredSize(new Dimension(width, height));
+
+        fm = Jrpm.getFontMetrics(Jrpm.getFont());
+
         //x --> in che colonna è
         //y --> in che riga è
         //w --> numero righe
@@ -184,8 +198,8 @@ public class Dashboard extends JFrame {
         c.gridx = 0;
         c.gridy = 0;
         c.gridheight = 10;
-        c.weightx = 1.0;
-        c.weighty = 10.0;
+        c.weightx = 3.0;
+        c.weighty = 3.0;
         add(Jdrsls, c);
 
         c.gridx = 1;
@@ -203,6 +217,7 @@ public class Dashboard extends JFrame {
         //la prima colonna
 
         row = 10;
+        c.weightx = 3;
 
         c.fill = GridBagConstraints.HORIZONTAL;
 
@@ -273,8 +288,6 @@ public class Dashboard extends JFrame {
         pressFront.add(JtyresPressureFL);
         pressFront.add(JtyresPressureFR);
 
-        int banana = row;
-
         JPanel pressRear = new JPanel(new GridLayout(1, 2));
         pressRear.setOpaque(false);
         pressRear.add(JtyresPressureRL);
@@ -293,11 +306,13 @@ public class Dashboard extends JFrame {
         row += 4;
 
         //la seconda colonna
+        c = new GridBagConstraints();
+        c.weightx = 3.0;
         row = 10;
 
         c.gridx = 1;
         c.gridy = row;
-        c.gridheight = 4;
+        c.gridheight = 30;
         c.weighty = 16;
         add(Jspeed, c);
         row += 10;
@@ -317,6 +332,8 @@ public class Dashboard extends JFrame {
         row += 10;
 
         //la terza colonna
+        c = new GridBagConstraints();
+        c.weightx = 3;
         row = 10;
 
         c.gridx = 2;
