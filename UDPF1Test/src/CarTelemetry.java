@@ -123,6 +123,10 @@ public class CarTelemetry {
         return m_throttle;
     }
 
+    public byte getThrottlePercent(){
+        return (byte)(m_throttle * 100);
+    }
+
     public float getSteer(){
         return m_steer;
     }
@@ -139,6 +143,10 @@ public class CarTelemetry {
 
     public float getBrake(){
         return m_brake;
+    }
+
+    public byte getBrakePercent(){
+        return (byte)(m_brake * 100);
     }
 
     public byte getClutch(){
@@ -233,7 +241,7 @@ public class CarTelemetry {
 
     public float getM_tyresPressureRL() {
         return m_tyresPressureRL;
-    }
+    }   //not troncated
 
     public float getM_tyresPressureRR() {
         return m_tyresPressureRR;
@@ -245,6 +253,26 @@ public class CarTelemetry {
 
     public float getM_tyresPressureFR() {
         return m_tyresPressureFR;
+    }
+
+    public float getTyresPressureRL(){
+        int m = (int)(m_tyresPressureRL*10);
+        return (float)(m/10);
+    }                              //troncated
+
+    public float getTyresPressureRR(){
+        int m = (int)(m_tyresPressureRR*10);
+        return (float)(m/10);
+    }
+
+    public float getTyresPressureFL(){
+        int m = (int)(m_tyresPressureFL*10);
+        return (float)(m/10);
+    }
+
+    public float getTyresPressureFR(){
+        int m = (int)(m_tyresPressureFR*10);
+        return (float)(m/10);
     }
 
 
