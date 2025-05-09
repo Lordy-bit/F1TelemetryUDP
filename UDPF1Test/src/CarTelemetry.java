@@ -46,6 +46,14 @@ public class CarTelemetry {
     private byte      m_surfaceTypeFL;
     private byte      m_surfaceTypeFR;
 
+    private byte      m_mfdPanelIndex;                      // Index of MFD panel open - 255 = MFD closed
+                                                            // Single player, race – 0 = Car setup, 1 = Pits
+                                                            // 2 = Damage, 3 = Engine, 4 = Temperatures
+                                                            // May vary depending on game mode
+    private byte      m_mfdPanelIndexSecondaryPlayer;       // See above
+    private byte      m_suggestedGear;                      // Suggested gear for the player (1-8)
+                                                            // 0 if no gear suggested
+
     //functional
     private float prev_steer;
 
@@ -103,6 +111,13 @@ public class CarTelemetry {
         m_surfaceTypeFL = data[82];
         m_surfaceTypeFR = data[83];
 
+    }
+
+    public void loadAllInfo(byte [] data){
+        loadInfo(data);
+        m_mfdPanelIndex = data[1344];
+        m_mfdPanelIndexSecondaryPlayer = data[1345];
+        m_suggestedGear = data[1346];
     }
 
 
@@ -300,6 +315,19 @@ public class CarTelemetry {
             }
         }
         return true;
+    }
+
+
+    public byte getM_mfdPanelIndex() {
+        return m_mfdPanelIndex;
+    }
+
+    public byte getM_mfdPanelIndexSecondaryPlayer() {
+        return m_mfdPanelIndexSecondaryPlayer;
+    }
+
+    public byte getM_suggestedGear() {
+        return m_suggestedGear;
     }
 
     public static short toShort(byte [] data, int i){
