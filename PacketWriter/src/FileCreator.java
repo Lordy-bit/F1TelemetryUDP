@@ -15,14 +15,21 @@ public class FileCreator {
             DatagramPacket packet = new DatagramPacket(event, event.length);
             byte [] data;
 
-
-
-            FileWriter file = new FileWriter("data.txt");
-            file.flush();
             String currentFormattedTime = LocalTime.now().format(dtf);
+            System.out.println("Current time:");
             System.out.println(currentFormattedTime);
+            System.out.println("");
+
             Scanner sc = new Scanner(System.in);
+            System.out.println("Time to end simulation:");
             String time = sc.nextLine();
+            System.out.println("");
+
+            System.out.println("File Name:");
+            String fileName = sc.nextLine()+".txt";
+            FileWriter file = new FileWriter(fileName);
+            System.out.println("");
+            file.flush();
 
             while(!time.equals(currentFormattedTime)){
                 server.receive(packet);
@@ -32,6 +39,7 @@ public class FileCreator {
                 }
                 currentFormattedTime = LocalTime.now().format(dtf);
             }
+            System.out.println("Simulation finished.");
             file.close();
     }
 }
