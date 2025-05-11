@@ -309,7 +309,7 @@ public class CarTelemetry {
 
     public boolean innerTempsInWindow(int min, int max){
         for (byte b : new byte[]{m_tyresInnerTemperatureFL,m_tyresInnerTemperatureFR,m_tyresInnerTemperatureRL,m_tyresInnerTemperatureRR}){
-            if (b < min && b > max){
+            if (b > min && b < max){
                 return false;
             }
         }
