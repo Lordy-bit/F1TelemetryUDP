@@ -146,15 +146,14 @@ public class CarTelemetry {
         return m_steer;
     }
 
-    public double getSteerInDeg() {
-        return Math.acos(m_steer);
+    public double getSteerInRad() {
+        return -Math.acos(m_steer)+(Math.PI/2);
     }
-
     public double getSteerDiff(){
         return prev_steer-m_steer;
     }
 
-    public double getSteerDiffInDeg(){return Math.acos(getSteerDiff());}
+    public double getSteerDiffInRad(){return Math.acos(getSteerDiff());}
 
     public float getBrake(){
         return m_brake;
