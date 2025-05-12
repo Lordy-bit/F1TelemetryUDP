@@ -23,7 +23,7 @@ public class Server {
 
         //data updater
         Timer timer3 = new Timer(0, new ActionListener() {
-            DataReader dr = new DataReader("data.txt");
+            DataReader dr = new DataReader("data2.txt");
             public void actionPerformed(ActionEvent e) {
                 try {
                     data = dr.read(0);

@@ -1,14 +1,8 @@
 import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import javax.imageio.ImageIO;
-import javax.swing.border.EmptyBorder;
 import java.io.File;
 import java.io.IOException;
 
@@ -20,7 +14,6 @@ public class Dashboard extends JFrame {
     private JLabel  JtyresInnerTemperatureFR;
     private JLabel  JtyresInnerTemperatureRL;
     private JLabel  JtyresInnerTemperatureRR;
-
     private JLabel  JtyresSurfaceTemperatureFL;
     private JLabel  JtyresSurfaceTemperatureFR;
     private JLabel  JtyresSurfaceTemperatureRL;
@@ -37,12 +30,12 @@ public class Dashboard extends JFrame {
     private JLabel Jspeed;
     private JLabel Jgear;
     private JLabel Jrpm;
-    private JPanel Jsteer;
+    private SteeringWheelPanel Jsteer;
 
     //terza colonna, brake & throttle
     private JPanel JrpmHigh;
-    private RotatedProgressBar Jbrake;
-    private RotatedProgressBar Jthrottle;
+    private RotatedProgressBar JbrakeBar;
+    private RotatedProgressBar JthrottleBar;
 
     //terza colonna, laps
     private JLabel JLastLapInMS;
@@ -55,7 +48,9 @@ public class Dashboard extends JFrame {
     //queste verrano usare per non occupare troppa memoria
     private static final Color GRIN = new Color(24, 203, 0);
     private static final Color GREI = new Color(75, 75, 75);
+    private static final Color BLU = new Color(34, 0, 203);
     private static final Color RAD = new Color(167,0,0);
+    private static final Color BG = new Color(6, 8, 20);
 
     public Dashboard(CarTelemetry ct, LapData ld) {
         this.ct = ct;
@@ -82,13 +77,14 @@ public class Dashboard extends JFrame {
         //components
 
         Jdrsls = new JPanel();
-        Jdrsls.setBackground(Color.green);
+        Jdrsls.setBackground(GREI);
+        Jdrsls.setVisible(true);
         JrpmLow = new JPanel();
-        JrpmLow.setBackground(Color.red);
+        JrpmLow.setBackground(GREI);
+        JrpmLow.setVisible(true);
         JrpmHigh = new JPanel();
-        JrpmHigh.setBackground(Color.BLUE);
-        Jsteer = new JPanel();
-        Jsteer.setBackground(Color.yellow);
+        JrpmHigh.setBackground(GREI);
+        JrpmHigh.setVisible(true);
         JtyresInnerTemperatureFL = new JLabel("0", SwingConstants.CENTER);
         JtyresInnerTemperatureFR = new JLabel("0", SwingConstants.CENTER);
         JtyresInnerTemperatureRL = new JLabel("0", SwingConstants.CENTER);
@@ -104,27 +100,33 @@ public class Dashboard extends JFrame {
         Jspeed = new JLabel("0", SwingConstants.CENTER);
         Jgear = new JLabel("0", SwingConstants.CENTER);
         Jrpm = new JLabel("0", SwingConstants.CENTER);
+        Jsteer = new SteeringWheelPanel("Resources/steeringWheel.png",0);
+        Jsteer.setVisible(true);
         JLastLapInMS = new JLabel("nope", SwingConstants.CENTER);
         JbestLapInMS = new JLabel("nope", SwingConstants.CENTER);
         JoptimalLapInMS = new JLabel("nope", SwingConstants.CENTER);
-        Jdrsls.setVisible(true);
-        JrpmLow.setVisible(true);
-        JrpmHigh.setVisible(true);
-        Jsteer.setVisible(true);
+
         JProgressBar barBrake = new JProgressBar();
-        Jbrake = new RotatedProgressBar(barBrake);
-        Jbrake.setValue(0);
-        barBrake.setStringPainted(true);
+        JbrakeBar = new RotatedProgressBar(barBrake);
+        JbrakeBar.setValue(0);
+        barBrake.setStringPainted(false);
+        barBrake.setForeground(GRIN);
+        barBrake.setBackground(BG);
         RotatedProgressBar Jbrake = new RotatedProgressBar(barBrake);
         JProgressBar barThrottle = new JProgressBar();
-        Jthrottle = new RotatedProgressBar(barThrottle);
-        Jthrottle.setValue(0);
-        barBrake.setStringPainted(true);
+        JthrottleBar = new RotatedProgressBar(barThrottle);
+        JthrottleBar.setValue(0);
+        barThrottle.setStringPainted(false);
+        barThrottle.setForeground(RAD);
+        barThrottle.setBackground(BG);
         RotatedProgressBar Jthrottle = new RotatedProgressBar(barThrottle);
+
+        JLabel steer = new JLabel();
+        steer.setVisible(true);
 
         //dashboard
         Container pane = getContentPane();
-        pane.setBackground(new Color(6, 8, 20));
+        pane.setBackground(BG);
         pane.setLayout(new GridBagLayout());
 
         buildDashBoard(pane);
@@ -166,23 +168,14 @@ public class Dashboard extends JFrame {
         } catch (IOException | FontFormatException e) {
             throw new RuntimeException(e);
         }
-
-        customFont = customFont.deriveFont(Font.PLAIN, 32f); // Adjust style and size as needed
+        customFont = customFont.deriveFont(Font.PLAIN, 24f); // Adjust style and size as needed
         for (int i = 0; i < labels.length; i++) {
-            setUpLabel(labels[i], Color.PINK, Color.white, customFont);
+            setUpLabel(labels[i], customFont);
         }
-        FontMetrics fm = Jspeed.getFontMetrics(Jspeed.getFont());
-        int width = fm.stringWidth("8888"); // la combinazione più larga che può apparire
+        FontMetrics fm = Jrpm.getFontMetrics(Jrpm.getFont());
+        int width = fm.stringWidth("88888888 RPM"); // la combinazione più larga che può apparire
         int height = fm.getHeight();
-        Jspeed.setPreferredSize(new Dimension(width, height));
-
-        fm = Jrpm.getFontMetrics(Jrpm.getFont());
-        width = fm.stringWidth("888888 RPM"); // la combinazione più larga che può apparire
-        height = fm.getHeight();
         Jrpm.setPreferredSize(new Dimension(width, height));
-
-        fm = Jrpm.getFontMetrics(Jrpm.getFont());
-
         //x --> in che colonna è
         //y --> in che riga è
         //w --> numero righe
@@ -190,44 +183,31 @@ public class Dashboard extends JFrame {
         //wx --> altezza
         //wy --> larghezza
 
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.BOTH;
-        c.gridwidth = 1;
         int row = 0;
-
-        c.gridx = 0;
-        c.gridy = 0;
-        c.gridheight = 10;
-        c.weightx = 3.0;
-        c.weighty = 3.0;
-        add(Jdrsls, c);
-
-        c.gridx = 1;
-        c.gridy = 0;
-        c.gridheight = 10;
-        c.weighty = 10.0;
-        add(JrpmLow, c);
-
-        c.gridx = 2;
-        c.gridy = 0;
-        c.gridheight = 10;
-        c.weighty = 30.0;
-        add(JrpmHigh, c);
 
         //la prima colonna
 
+        GridBagConstraints gbc0 = new GridBagConstraints();
+        JPanel col0 = new JPanel();
+        col0.setLayout(new GridBagLayout());
+        col0.setOpaque(false);
+        gbc0.fill = GridBagConstraints.BOTH;
+        gbc0.gridy = 0;
+        gbc0.gridx = 0;
+        gbc0.gridheight = 10;
+        gbc0.weightx = 3.0;
+        gbc0.weighty = 3.0;
+
         row = 10;
-        c.weightx = 3;
 
-        c.fill = GridBagConstraints.HORIZONTAL;
+        gbc0.fill = GridBagConstraints.HORIZONTAL;
 
-        c.gridx = 0;
-        c.gridy = row;
-        c.gridheight = 4;
-        c.weighty = 4.0;
+        gbc0.gridy = row;
+        gbc0.gridheight = 4;
+        gbc0.weighty = 4.0;
         JLabel tempsTitle = new JLabel("Temps", SwingConstants.CENTER);
-        setUpLabel(tempsTitle, Color.BLUE, Color.WHITE, customFont);
-        add(tempsTitle, c);
+        setUpLabel(tempsTitle, customFont);
+        col0.add(tempsTitle, gbc0);
         row += 4;
 
         JPanel tempsInnerFront = new JPanel(new GridLayout(1, 2));
@@ -250,37 +230,36 @@ public class Dashboard extends JFrame {
         tempsSurfaceRear.add(JtyresSurfaceTemperatureRL);
         tempsSurfaceRear.add(JtyresSurfaceTemperatureRR);
 
-        c.gridy = row;
-        c.gridheight = 4;
-        c.weighty = 4.0;
-        add(tempsInnerFront, c);
+        gbc0.gridy = row;
+        gbc0.gridheight = 4;
+        gbc0.weighty = 4.0;
+        col0.add(tempsInnerFront, gbc0);
         row += 4;
 
-        c.gridy = row;
-        c.gridheight = 4;
-        c.weighty = 4.0;
-        add(tempsSurfaceFront, c);
+        gbc0.gridy = row;
+        gbc0.gridheight = 4;
+        gbc0.weighty = 4.0;
+        col0.add(tempsSurfaceFront, gbc0);
         row += 12;
 
-        c.gridy = row;
-        c.gridheight = 4;
-        c.weighty = 4.0;
-        add(tempsInnerRear, c);
+        gbc0.gridy = row;
+        gbc0.gridheight = 4;
+        gbc0.weighty = 4.0;
+        col0.add(tempsInnerRear, gbc0);
         row += 4;
 
-        c.gridy = row;
-        c.gridheight = 4;
-        c.weighty = 4.0;
-        add(tempsSurfaceRear, c);
+        gbc0.gridy = row;
+        gbc0.gridheight = 4;
+        gbc0.weighty = 4.0;
+        col0.add(tempsSurfaceRear, gbc0);
         row += 4;
 
-        c.gridx = 0;
-        c.gridy = row;
-        c.gridheight = 4;
-        c.weighty = 4.0;
+        gbc0.gridy = row;
+        gbc0.gridheight = 4;
+        gbc0.weighty = 4.0;
         JLabel pressTitle = new JLabel("Press", SwingConstants.CENTER);
-        setUpLabel(pressTitle, Color.BLUE, Color.WHITE, customFont);
-        add(pressTitle, c);
+        setUpLabel(pressTitle, customFont);
+        col0.add(pressTitle, gbc0);
         row += 4;
 
         JPanel pressFront = new JPanel(new GridLayout(1, 2));
@@ -293,99 +272,181 @@ public class Dashboard extends JFrame {
         pressRear.add(JtyresPressureRL);
         pressRear.add(JtyresPressureRR);
 
-        c.gridy = row;
-        c.gridheight = 4;
-        c.weighty = 4.0;
-        add(pressFront, c);
+        gbc0.gridy = row;
+        gbc0.gridheight = 4;
+        gbc0.weighty = 4.0;
+        col0.add(pressFront, gbc0);
         row += 4;
 
-        c.gridy = row;
-        c.gridheight = 4;
-        c.weighty = 4.0;
-        add(pressRear, c);
+        gbc0.gridy = row;
+        gbc0.gridheight = 4;
+        gbc0.weighty = 4.0;
+        col0.add(pressRear, gbc0);
         row += 4;
 
         //la seconda colonna
-        c = new GridBagConstraints();
-        c.weightx = 3.0;
+
+        GridBagConstraints gbc1 = new GridBagConstraints();
+        JPanel col1 = new JPanel();
+        col1.setLayout(new GridBagLayout());
+        col1.setOpaque(false);
+        gbc1.fill = GridBagConstraints.BOTH;
+        gbc1.gridy = 0;
+        gbc1.gridheight = 10;
+        gbc1.weighty = 10.0;
+        gbc1.fill = GridBagConstraints.HORIZONTAL;
+
         row = 10;
 
-        c.gridx = 1;
-        c.gridy = row;
-        c.gridheight = 30;
-        c.weighty = 16;
-        add(Jspeed, c);
+        gbc1.gridy = row;
+        gbc1.weighty = 16;
+        col1.add(Jspeed, gbc1);
         row += 10;
 
-        c.gridx = 1;
-        c.gridy = row;
-        c.gridheight = 4;
-        c.weighty = 16;
-        add(Jgear, c);
+        gbc1.gridy = row;
+        gbc1.gridheight = 4;
+        gbc1.weighty = 16;
+        col1.add(Jgear, gbc1);
         row += 10;
 
-        c.gridx = 1;
-        c.gridy = row;
-        c.gridheight = 4;
-        c.weighty = 16;
-        add(Jrpm, c);
+        gbc1.gridy = row;
+        gbc1.gridheight = 4;
+        gbc1.weighty = 16;
+        col1.add(Jrpm, gbc1);
+        row += 10;
+
+        gbc1.gridy = row;
+        gbc1.gridheight = 4;
+        gbc1.weighty = 16;
+        col1.add(Jsteer, gbc1);
         row += 10;
 
         //la terza colonna
-        c = new GridBagConstraints();
-        c.weightx = 3;
+
+        GridBagConstraints gbc2 = new GridBagConstraints();
+        JPanel col2 = new JPanel();
+        col2.setLayout(new GridBagLayout());
+        col2.setOpaque(false);
+        gbc2.fill = GridBagConstraints.BOTH;
+        gbc2.gridy = 0;
+        gbc2.gridheight = 10;
+        gbc2.weighty = 30.0;
+        gbc2.fill = GridBagConstraints.HORIZONTAL;
+
+        gbc2 = new GridBagConstraints();
+        gbc2.weightx = 3;
         row = 10;
 
-        c.gridx = 2;
-        c.gridy = row;
-        c.gridheight = 4;
-        c.weighty = 16;
-        JPanel bars = new JPanel(new GridLayout(1, 2));
-        bars.add(Jbrake);
-        bars.add(Jthrottle);
-        add(bars, c);
+        gbc2.gridy = row;
+        gbc2.gridheight = 4;
+        gbc2.weighty = 16;
+        GridLayout titleLayout = new GridLayout(1, 2);
+        titleLayout.setHgap(40);
+        JPanel title = new JPanel(titleLayout);
+        title.setOpaque(false);
+        JLabel brk = new JLabel("BRK");
+        setUpLabel(brk, customFont);
+        JLabel thr = new JLabel("THR");
+        setUpLabel(thr, customFont);
+        title.add(brk);
+        title.add(thr);
+        col2.add(title, gbc2);
         row += 10;
 
-        c.gridx = 2;
-        c.gridy = row;
-        c.gridheight = 4;
-        c.weighty = 16;
-        add(JLastLapInMS, c);
+        gbc2.gridy = row;
+        gbc2.gridheight = 4;
+        gbc2.weighty = 16;
+        GridLayout barsLayout = new GridLayout(1, 2);
+        barsLayout.setHgap(70);
+        JPanel bars = new JPanel(barsLayout);
+        bars.setOpaque(false);
+        bars.add(JbrakeBar);
+        bars.add(JthrottleBar);
+        col2.add(bars, gbc2);
         row += 10;
 
-        c.gridx = 2;
-        c.gridy = row;
-        c.gridheight = 4;
-        c.weighty = 16;
-        add(JbestLapInMS, c);
+        gbc2.gridy = row;
+        gbc2.gridheight = 2;
+        gbc2.weighty = 8;
+        col2.add(JLastLapInMS, gbc2);
         row += 10;
 
-        c.gridx = 2;
-        c.gridy = row;
-        c.gridheight = 4;
-        c.weighty = 16;
-        add(JoptimalLapInMS, c);
+        gbc2.gridy = row;
+        gbc2.gridheight = 2;
+        gbc2.weighty = 8;
+        col2.add(JbestLapInMS, gbc2);
         row += 10;
+
+        gbc2.gridy = row;
+        gbc2.gridheight = 2;
+        gbc2.weighty = 8;
+        col2.add(JoptimalLapInMS, gbc2);
+        row += 10;
+
+        GridBagConstraints c = new GridBagConstraints();
+
+        //aggingo Jdrls, JrpmLow e JrpmHigh
+        c.gridy = 0;
+        c.fill = GridBagConstraints.BOTH;
+        c.weighty = 0.2;
+
+        c.gridx = 0;
+        c.weightx = 1.0;
+        add(Jdrsls, c);
+
+        c.gridx = 1;
+        c.weightx = 1.0;
+        add(JrpmLow, c);
+
+        c.gridx = 2;
+        c.weightx = 1.0;
+        add(JrpmHigh, c);
+
+        //aggiungo le 3 colonne
+        c.gridy = 1;
+        c.fill = GridBagConstraints.BOTH;
+        c.weighty = 1.0;
+
+        c.gridx = 0;
+        c.weightx = 1.0;
+        add(col0, c);
+
+        c.gridx = 1;
+        c.weightx = 1.0;
+        add(col1, c);
+
+        c.gridx = 2;
+        c.weightx = 1.0;
+        add(col2, c);
     }
 
-
-    private void setUpLabel(JLabel label, Color bg, Color fg, Font f) {
-        //label.setOpaque(true);
-        //label.setBackground(bg);
-        label.setForeground(fg);
+    private void setUpLabel(JLabel label, Font f) {
         label.setFont(f);
+        label.setForeground(Color.WHITE);
         label.setVisible(true);
+    }
+
+    private void setTempsColor() {
+        if (ct.innerTempsInWindow(85,100)) {
+            JtyresInnerTemperatureFL.setForeground(Color.WHITE);
+            JtyresInnerTemperatureFR.setForeground(Color.WHITE);
+            JtyresInnerTemperatureRL.setForeground(Color.WHITE);
+            JtyresInnerTemperatureRR.setForeground(Color.WHITE);
+        } else {
+            JtyresInnerTemperatureFL.setForeground(Color.YELLOW);
+            JtyresInnerTemperatureFR.setForeground(Color.YELLOW);
+            JtyresInnerTemperatureRL.setForeground(Color.YELLOW);
+            JtyresInnerTemperatureRR.setForeground(Color.YELLOW);
+        }
     }
 
     private void setSpeed() {
         Jspeed.setText("" + ct.getSpeed());
     }
 
-    private void setThrottle() { Jthrottle.setValue(ct.getThrottlePercent());}
+    private void setThrottle() { JthrottleBar.setValue(ct.getThrottlePercent());}
 
-    private void setSteer() { ;} // for now it does nothing
-
-    private void setBrake() { Jbrake.setValue(ct.getBrakePercent());}
+    private void setBrake() { JbrakeBar.setValue(ct.getBrakePercent());}
 
     private void setDrsls() {
         if (ct.DRSisOn()) {
@@ -396,20 +457,18 @@ public class Dashboard extends JFrame {
     }
 
     private void setRpmLow() {
-        byte rpmL = ct.getRevLightsPercent();
-        if (rpmL > 87) {
+        if (ct.getRevLightsPercent() > 0) {// && ct.getRevLightsPercent() < 60) {
             JrpmLow.setBackground(RAD);
         } else {
-            JrpmLow.setBackground(GRIN);
+            JrpmLow.setBackground(GREI);
         }
     }
 
-    private void setRpmHIGH() {
-        byte rpmH = ct.getRevLightsPercent();
-        if (rpmH > 90) {
-            JrpmLow.setBackground(RAD);
+    private void setRpmHigh() {
+        if (ct.getRevLightsPercent() > 60) {
+            JrpmHigh.setBackground(BLU);
         } else {
-            JrpmLow.setBackground(GRIN);
+            JrpmHigh.setBackground(GREI);
         }
     }
 
@@ -455,7 +514,6 @@ public class Dashboard extends JFrame {
     private void setTyresPressureRL() {
         JtyresPressureRL.setText("" + Math.floor(ct.getM_tyresPressureRL()));
     }
-
     private void setTyresPressureRR() {
         JtyresPressureRR.setText("" + Math.floor(ct.getM_tyresPressureRR()));
     }
@@ -478,15 +536,27 @@ public class Dashboard extends JFrame {
         Jrpm.setText(ct.getEngineRPM() + " RPM");
     }
 
+    private void setSteer() {
+        Jsteer.setValue(ct.getSteerInRad());
+    }
+
     private void updateGUI() {
         setSpeed();
         setGear();
         setRpm();
         setDrsls();
+        setRpmLow();
+        setRpmHigh();
+        setSteer();
+        setTempsColor();
         setTyresInnerTemperatureFL();
         setTyresInnerTemperatureFR();
         setTyresInnerTemperatureRL();
         setTyresInnerTemperatureRR();
+        setTyresSurfaceTemperatureFL();
+        setTyresSurfaceTemperatureFR();
+        setTyresSurfaceTemperatureRL();
+        setTyresSurfaceTemperatureRR();
         setTyresPressureFL();
         setTyresPressureFR();
         setTyresPressureRL();
@@ -505,38 +575,5 @@ public class Dashboard extends JFrame {
             }
         });
         timer.start();
-    }
-
-    private class RotatedProgressBar extends JComponent {
-        private JProgressBar bar;
-
-        public RotatedProgressBar(JProgressBar bar) {
-            this.bar = bar;
-        }
-
-        public void setValue(int n) {
-            bar.setValue(n);
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            // Porta l'origine in basso a sinistra
-            g2.translate(0, getHeight());
-            // Ruota -90° per disporre la barra verticalmente, crescita dal basso verso l'alto
-            g2.rotate(Math.toRadians(-90));
-            // Imposta la dimensione della barra correttamente ruotata
-            bar.setSize(getHeight(), getWidth());
-            // Disegna la barra
-            bar.paint(g2);
-            g2.dispose();
-        }
-
-
-        @Override
-        public Dimension getPreferredSize() {
-            Dimension size = bar.getPreferredSize();
-            return new Dimension(size.height, size.width);
-        }
     }
 }

@@ -46,6 +46,14 @@ public class CarTelemetry {
     private byte      m_surfaceTypeFL;
     private byte      m_surfaceTypeFR;
 
+    private byte      m_mfdPanelIndex;                      // Index of MFD panel open - 255 = MFD closed
+                                                            // Single player, race – 0 = Car setup, 1 = Pits
+                                                            // 2 = Damage, 3 = Engine, 4 = Temperatures
+                                                            // May vary depending on game mode
+    private byte      m_mfdPanelIndexSecondaryPlayer;       // See above
+    private byte      m_suggestedGear;                      // Suggested gear for the player (1-8)
+                                                            // 0 if no gear suggested
+
     //functional
     private float prev_steer;
 
@@ -105,6 +113,13 @@ public class CarTelemetry {
 
     }
 
+    public void loadAllInfo(byte [] data){
+        loadInfo(data);
+        m_mfdPanelIndex = data[1344];
+        m_mfdPanelIndexSecondaryPlayer = data[1345];
+        m_suggestedGear = data[1346];
+    }
+
 
     public void printInfo(){
         System.out.println("Speed: "+m_speed);
@@ -131,15 +146,14 @@ public class CarTelemetry {
         return m_steer;
     }
 
-    public double getSteerInDeg() {
-        return Math.acos(m_steer);
+    public double getSteerInRad() {
+        return -Math.acos(m_steer)+(Math.PI/2);
     }
-
     public double getSteerDiff(){
         return prev_steer-m_steer;
     }
 
-    public double getSteerDiffInDeg(){return Math.acos(getSteerDiff());}
+    public double getSteerDiffInRad(){return Math.acos(getSteerDiff());}
 
     public float getBrake(){
         return m_brake;
@@ -295,11 +309,24 @@ public class CarTelemetry {
 
     public boolean innerTempsInWindow(int min, int max){
         for (byte b : new byte[]{m_tyresInnerTemperatureFL,m_tyresInnerTemperatureFR,m_tyresInnerTemperatureRL,m_tyresInnerTemperatureRR}){
-            if (b < min && b > max){
+            if (b < min || b > max){
                 return false;
             }
         }
         return true;
+    }
+
+
+    public byte getM_mfdPanelIndex() {
+        return m_mfdPanelIndex;
+    }
+
+    public byte getM_mfdPanelIndexSecondaryPlayer() {
+        return m_mfdPanelIndexSecondaryPlayer;
+    }
+
+    public byte getM_suggestedGear() {
+        return m_suggestedGear;
     }
 
     public static short toShort(byte [] data, int i){
