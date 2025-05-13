@@ -34,7 +34,7 @@ Make sure you have the following installed:
 #### Clone the repository
 ```bash
 
-git  clone  https://github.com/yourusername/F1TelemetryUDP.git
+git  clone  https://github.com/Lordy-bit/F1TelemetryUDP.git
 
 ```
 
