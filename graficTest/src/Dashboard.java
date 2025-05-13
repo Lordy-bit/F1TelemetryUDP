@@ -6,9 +6,14 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-
+/**
+ * Dashboard is the object we'll be using for the gui
+ *
+ * @author Sheikh Alif
+ *
+ */
 public class Dashboard extends JFrame {
-    //prima colonna
+    //first column
     private JPanel Jdrsls;
     private JLabel  JtyresInnerTemperatureFL;
     private JLabel  JtyresInnerTemperatureFR;
@@ -19,25 +24,25 @@ public class Dashboard extends JFrame {
     private JLabel  JtyresSurfaceTemperatureRL;
     private JLabel  JtyresSurfaceTemperatureRR;
 
-    //prima colonna
+    //first column
     private JLabel  JtyresPressureFL;
     private JLabel  JtyresPressureFR;
     private JLabel  JtyresPressureRL;
     private JLabel  JtyresPressureRR;
 
-    //seconda colonna
+    //second column
     private JPanel JrpmLow;
     private JLabel Jspeed;
     private JLabel Jgear;
     private JLabel Jrpm;
     private SteeringWheelPanel Jsteer;
 
-    //terza colonna, brake & throttle
+    //third column, brake & throttle
     private JPanel JrpmHigh;
     private RotatedProgressBar JbrakeBar;
     private RotatedProgressBar JthrottleBar;
 
-    //terza colonna, laps
+    //third column, laps
     private JLabel JLastLapInMS;
     private JLabel JbestLapInMS;
     private JLabel JoptimalLapInMS;
@@ -45,13 +50,19 @@ public class Dashboard extends JFrame {
     private CarTelemetry ct;
     private LapData ld;
 
-    //queste verrano usare per non occupare troppa memoria
+    //colors of the background, the 3 upper panel and the bars
     private static final Color GRIN = new Color(24, 203, 0);
     private static final Color GREI = new Color(75, 75, 75);
     private static final Color BLU = new Color(34, 0, 203);
     private static final Color RAD = new Color(167,0,0);
     private static final Color BG = new Color(6, 8, 20);
+    private static final Color PARPOL = new Color(190, 0, 193);
 
+    /**
+     * <p> This is the constructor for creating a Dashboard object (and his window)
+     * </p>
+     * @param ct the object we
+     */
     public Dashboard(CarTelemetry ct, LapData ld) {
         this.ct = ct;
         this.ld = ld;
@@ -62,11 +73,6 @@ public class Dashboard extends JFrame {
         catch (IOException e){
             e.printStackTrace();
         }
-    }
-
-    public Dashboard(String title, CarTelemetry ct) {
-        this.ct = ct;
-        init(title);
     }
 
     private void init(String title) {
@@ -110,14 +116,14 @@ public class Dashboard extends JFrame {
         JbrakeBar = new RotatedProgressBar(barBrake);
         JbrakeBar.setValue(0);
         barBrake.setStringPainted(false);
-        barBrake.setForeground(GRIN);
+        barBrake.setForeground(RAD);
         barBrake.setBackground(BG);
         RotatedProgressBar Jbrake = new RotatedProgressBar(barBrake);
         JProgressBar barThrottle = new JProgressBar();
         JthrottleBar = new RotatedProgressBar(barThrottle);
         JthrottleBar.setValue(0);
         barThrottle.setStringPainted(false);
-        barThrottle.setForeground(RAD);
+        barThrottle.setForeground(GRIN);
         barThrottle.setBackground(BG);
         RotatedProgressBar Jthrottle = new RotatedProgressBar(barThrottle);
 
@@ -176,16 +182,13 @@ public class Dashboard extends JFrame {
         int width = fm.stringWidth("88888888 RPM"); // la combinazione più larga che può apparire
         int height = fm.getHeight();
         Jrpm.setPreferredSize(new Dimension(width, height));
-        //x --> in che colonna è
-        //y --> in che riga è
-        //w --> numero righe
-        //h --> numero colonne
-        //wx --> altezza
-        //wy --> larghezza
-
+        Jspeed.setFont(customFont.deriveFont(Font.PLAIN, 50f));
+        Jgear.setFont(customFont.deriveFont(Font.PLAIN, 170f));
+        JbestLapInMS.setForeground(GRIN);
+        JoptimalLapInMS.setForeground(PARPOL);
         int row = 0;
 
-        //la prima colonna
+        //first column
 
         GridBagConstraints gbc0 = new GridBagConstraints();
         JPanel col0 = new JPanel();
@@ -284,13 +287,12 @@ public class Dashboard extends JFrame {
         col0.add(pressRear, gbc0);
         row += 4;
 
-        //la seconda colonna
+        //second column
 
         GridBagConstraints gbc1 = new GridBagConstraints();
         JPanel col1 = new JPanel();
         col1.setLayout(new GridBagLayout());
         col1.setOpaque(false);
-        gbc1.fill = GridBagConstraints.BOTH;
         gbc1.gridy = 0;
         gbc1.gridheight = 10;
         gbc1.weighty = 10.0;
@@ -321,7 +323,7 @@ public class Dashboard extends JFrame {
         col1.add(Jsteer, gbc1);
         row += 10;
 
-        //la terza colonna
+        //third column
 
         GridBagConstraints gbc2 = new GridBagConstraints();
         JPanel col2 = new JPanel();
@@ -385,7 +387,7 @@ public class Dashboard extends JFrame {
 
         GridBagConstraints c = new GridBagConstraints();
 
-        //aggingo Jdrls, JrpmLow e JrpmHigh
+        //add Jdrls, JrpmLow e JrpmHigh
         c.gridy = 0;
         c.fill = GridBagConstraints.BOTH;
         c.weighty = 0.2;
@@ -402,7 +404,7 @@ public class Dashboard extends JFrame {
         c.weightx = 1.0;
         add(JrpmHigh, c);
 
-        //aggiungo le 3 colonne
+        //add the 3 columns
         c.gridy = 1;
         c.fill = GridBagConstraints.BOTH;
         c.weighty = 1.0;
@@ -512,18 +514,18 @@ public class Dashboard extends JFrame {
     }
 
     private void setTyresPressureRL() {
-        JtyresPressureRL.setText("" + Math.floor(ct.getM_tyresPressureRL()));
+        JtyresPressureRL.setText("" + ct.getTyresPressureRL());
     }
     private void setTyresPressureRR() {
-        JtyresPressureRR.setText("" + Math.floor(ct.getM_tyresPressureRR()));
+        JtyresPressureRR.setText("" + ct.getTyresPressureRR());
     }
 
     private void setTyresPressureFL() {
-        JtyresPressureFL.setText("" + Math.floor(ct.getM_tyresPressureFL()));
+        JtyresPressureFL.setText("" + ct.getTyresPressureFL());
     }
 
     private void setTyresPressureFR() {
-        JtyresPressureFR.setText("" + Math.floor(ct.getM_tyresPressureFR()));
+        JtyresPressureFR.setText("" + ct.getTyresPressureFR());
     }
 
     private void setLastLapTimeInMS() { JLastLapInMS.setText("Last: " + ld.timeToString(ld.getLastLapTimeInMS()));}
