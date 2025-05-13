@@ -6,12 +6,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Dashboard is the object we'll be using for the gui
- *
- * @author Sheikh Alif
- *
- */
 public class Dashboard extends JFrame {
     //first column
     private JPanel Jdrsls;
@@ -59,7 +53,7 @@ public class Dashboard extends JFrame {
     private static final Color PARPOL = new Color(190, 0, 193);
 
     /**
-     * <p> This is the constructor for creating a Dashboard object (and his window)
+     * <p> Initilize the Car Telemetry and LapData object, where we get the updated data
      * </p>
      * @param ct the object we
      */
