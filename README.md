@@ -8,7 +8,7 @@
 
 ## Docs
 
-![This is the overview tree of the classes](docs/overview-tree.html)
+[This is the overview tree of the classes](docs/overview-tree.html)
   
 
 ## Index
