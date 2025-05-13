@@ -8,7 +8,7 @@
 
 ## Docs
 
-[This is the overview tree of the classes](https://SheikhAlf.github.io/yourrepo/docs/overview-tree.html)
+[This is the overview tree of the classes](https://Lordy-bit.github.io/F1TelemetryUDP/docs/overview-tree.html)
   
 
 ## Index
