@@ -147,7 +147,7 @@ public class CarTelemetry {
     }
 
     public double getSteerInRad() {
-        return -Math.acos(m_steer)+(Math.PI/2);
+        return -Math.acos(m_steer)*2+Math.PI;
     }
     public double getSteerDiff(){
         return prev_steer-m_steer;
@@ -271,22 +271,22 @@ public class CarTelemetry {
 
     public float getTyresPressureRL(){
         int m = (int)(m_tyresPressureRL*10);
-        return (float)(m/10);
+        return (float)m/10;
     }                              //troncated
 
     public float getTyresPressureRR(){
         int m = (int)(m_tyresPressureRR*10);
-        return (float)(m/10);
+        return (float)m/10;
     }
 
     public float getTyresPressureFL(){
         int m = (int)(m_tyresPressureFL*10);
-        return (float)(m/10);
+        return (float)m/10;
     }
 
     public float getTyresPressureFR(){
         int m = (int)(m_tyresPressureFR*10);
-        return (float)(m/10);
+        return (float)m/10;
     }
 
 
