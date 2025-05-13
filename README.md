@@ -46,7 +46,7 @@ git  clone  https://github.com/Lordy-bit/F1TelemetryUDP.git
 
 # Run directly with Java:
 
-java  -cp  out/production/F1Telemetry Server
+java  -cp  out/production/F1 Telemetry Main
 
 ```
 
