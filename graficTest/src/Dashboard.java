@@ -53,7 +53,7 @@ public class Dashboard extends JFrame {
     private static final Color PARPOL = new Color(190, 0, 193);
 
     /**
-     * <p> Initilize the Car Telemetry and LapData object, where we get the updated data
+     * <p> Initialize the Car Telemetry and LapData object, where we get the updated data, and set the icon of the app
      * </p>
      * @param ct the object we
      */
@@ -69,6 +69,11 @@ public class Dashboard extends JFrame {
         }
     }
 
+    /**
+     * <p> Initialize and setup all the JPanels and JLabels need (+ custom bars) and 'build' the dashboard
+     * </p>
+     * @param title The title of the window created
+     */
     private void init(String title) {
         //window
         setTitle(title);
