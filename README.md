@@ -8,7 +8,7 @@
 
 ## Docs
 
-[This is the overview tree of the classes](https://github.com/Lordy-bit/F1TelemetryUDP/blob/main/docs/overview-tree.html)
+[This is the overview tree of the classes](https://lordy-bit.github.io/F1TelemetryUDP/overview-tree.html)
   
 
 ## Index
