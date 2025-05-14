@@ -8,40 +8,40 @@ public class CarTelemetry {
     // RL, RR, FL, FR
 
 
-    private short     m_speed;                        // Speed of car in kilometres per hour
-    private float     m_throttle;                     // Amount of throttle applied (0.0 to 1.0)
-    private float     m_steer;                        // Steering (-1.0 (full lock left) to 1.0 (full lock right))
-    private float     m_brake;                        // Amount of brake applied (0.0 to 1.0)
-    private byte      m_clutch;                       // Amount of clutch applied (0 to 100)
-    private byte      m_gear;                         // Gear selected (1-8, N=0, R=-1)
-    private short     m_engineRPM;                    // Engine RPM
-    private byte      m_drs;                          // 0 = off, 1 = on
-    private byte      m_revLightsPercent;             // Rev lights indicator (percentage)
-    private short     m_revLightsBitValue;            // Rev lights (bit 0 = leftmost LED, bit 14 = rightmost LED)
+    private short     m_speed;                              // Speed of car in kilometres per hour
+    private float     m_throttle;                           // Amount of throttle applied (0.0 to 1.0)
+    private float     m_steer;                              // Steering (-1.0 (full lock left) to 1.0 (full lock right))
+    private float     m_brake;                              // Amount of brake applied (0.0 to 1.0)
+    private byte      m_clutch;                             // Amount of clutch applied (0 to 100)
+    private byte      m_gear;                               // Gear selected (1-8, N=0, R=-1)
+    private short     m_engineRPM;                          // Engine RPM
+    private byte      m_drs;                                // 0 = off, 1 = on
+    private byte      m_revLightsPercent;                   // Rev lights indicator (percentage)
+    private short     m_revLightsBitValue;                  // Rev lights (bit 0 = leftmost LED, bit 14 = rightmost LED)
 
-    private short     m_brakesTemperatureRL;          // Brakes temperature (celsius)
+    private short     m_brakesTemperatureRL;                // Brakes temperature (celsius)
     private short     m_brakesTemperatureRR;
     private short     m_brakesTemperatureFL;
     private short     m_brakesTemperatureFR;
 
-    private byte      m_tyresSurfaceTemperatureRL;    // Tyres surface temperature (celsius)
+    private byte      m_tyresSurfaceTemperatureRL;          // Tyres surface temperature (celsius)
     private byte      m_tyresSurfaceTemperatureRR;
     private byte      m_tyresSurfaceTemperatureFL;
     private byte      m_tyresSurfaceTemperatureFR;
 
-    private byte      m_tyresInnerTemperatureRL;     // Tyres inner temperature (celsius)
+    private byte      m_tyresInnerTemperatureRL;            // Tyres inner temperature (celsius)
     private byte      m_tyresInnerTemperatureRR;
     private byte      m_tyresInnerTemperatureFL;
     private byte      m_tyresInnerTemperatureFR;
 
-    private short     m_engineTemperature;           // Engine temperature (celsius)
+    private short     m_engineTemperature;                  // Engine temperature (celsius)
 
-    private float     m_tyresPressureRL;            // Tyres pressure (PSI)
+    private float     m_tyresPressureRL;                    // Tyres pressure (PSI)
     private float     m_tyresPressureRR;
     private float     m_tyresPressureFL;
     private float     m_tyresPressureFR;
 
-    private byte      m_surfaceTypeRL;               // Driving surface, see appendices
+    private byte      m_surfaceTypeRL;                      // Driving surface, see appendices
     private byte      m_surfaceTypeRR;
     private byte      m_surfaceTypeFL;
     private byte      m_surfaceTypeFR;

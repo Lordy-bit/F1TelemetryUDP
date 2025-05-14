@@ -6,11 +6,11 @@ public class Participant {
     private byte      m_myTeam;                  // My team flag – 1 = My Team, 0 = otherwise
     private byte      m_raceNumber;              // Race number of the car
     private byte      m_nationality;             // Nationality of the driver
-    private String       m_name;               //[48] Name of participant in UTF-8 format – null terminated
-                                         // Will be truncated with … (U+2026) if too long
+    private String    m_name;                    //[48] Name of participant in UTF-8 format – null terminated
+                                                 // Will be truncated with … (U+2026) if too long
     private byte      m_yourTelemetry;           // The player's UDP setting, 0 = restricted, 1 = public
 
-    int index;                           //index of this participant
+    int index;                                   //index of this participant
     byte m_numActiveCars;
 
     public Participant(int index){
