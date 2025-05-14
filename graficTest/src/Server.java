@@ -12,12 +12,12 @@ public class Server {
     public static void main(String[] args) throws IOException {
         Header header = new Header();
 
-        CarTelemetry cl = new CarTelemetry(0); //when real match --> header.getPlayerIndex());
-        LapData lp = new LapData(0);//when real match --> header.getPlayerIndex());
+        CarTelemetry ct = new CarTelemetry(0); //when real match --> header.getPlayerIndex());
+        LapData ld = new LapData(0);//when real match --> header.getPlayerIndex());
         //gui
         SwingUtilities.invokeLater(() -> {
             System.setProperty("sun.java2d.uiScale","1.0");
-            Dashboard gui = new Dashboard(cl, lp);
+            Dashboard gui = new Dashboard(ct, ld);
             gui.start();
         });
 
@@ -31,8 +31,10 @@ public class Server {
                     System.out.println("ops");
                 }
                 header.loadInfo(data);
-                if (header.getID() == 6) { //&& header.getM_packetFormat() == 2021) {
-                    cl.loadInfo(data);
+                if (header.getID() == 6) {
+                    ct.loadInfo(data);
+                } else if (header.getID() == 2) {
+                    ld.loadInfo(data);
                 }
             }
         });
