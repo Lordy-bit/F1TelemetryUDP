@@ -8,7 +8,7 @@
 
 ## Docs
 
-[This is the overview tree of the classes](https://Lordy-bit.github.io/F1TelemetryUDP/docs/overview-tree.html)
+[This is the overview tree of the classes](https://github.com/Lordy-bit/F1TelemetryUDP/blob/main/docs/overview-tree.html)
   
 
 ## Index
@@ -46,7 +46,7 @@ git  clone  https://github.com/Lordy-bit/F1TelemetryUDP.git
 
 # Run directly with Java:
 
-java  -cp  out/production/F1 Telemetry Main
+java  -cp  'out/production/F1 Telemetry' Main
 
 ```
 
