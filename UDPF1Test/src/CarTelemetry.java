@@ -24,15 +24,15 @@ public class CarTelemetry {
     private short     m_brakesTemperatureFL;
     private short     m_brakesTemperatureFR;
 
-    private byte      m_tyresSurfaceTemperatureRL;          // Tyres surface temperature (celsius)
-    private byte      m_tyresSurfaceTemperatureRR;
-    private byte      m_tyresSurfaceTemperatureFL;
-    private byte      m_tyresSurfaceTemperatureFR;
+    private int       m_tyresSurfaceTemperatureRL;          // Tyres surface temperature (celsius)
+    private int       m_tyresSurfaceTemperatureRR;
+    private int       m_tyresSurfaceTemperatureFL;
+    private int       m_tyresSurfaceTemperatureFR;
 
-    private byte      m_tyresInnerTemperatureRL;            // Tyres inner temperature (celsius)
-    private byte      m_tyresInnerTemperatureRR;
-    private byte      m_tyresInnerTemperatureFL;
-    private byte      m_tyresInnerTemperatureFR;
+    private int       m_tyresInnerTemperatureRL;            // Tyres inner temperature (celsius)
+    private int       m_tyresInnerTemperatureRR;
+    private int       m_tyresInnerTemperatureFL;
+    private int       m_tyresInnerTemperatureFR;
 
     private short     m_engineTemperature;                  // Engine temperature (celsius)
 
@@ -89,15 +89,15 @@ public class CarTelemetry {
         m_brakesTemperatureFL = toShort(data,50+mul);
         m_brakesTemperatureFR = toShort(data,52+mul);
 
-        m_tyresSurfaceTemperatureRL = data[54+mul];
-        m_tyresSurfaceTemperatureRR = data[55+mul];
-        m_tyresSurfaceTemperatureFL = data[56+mul];
-        m_tyresSurfaceTemperatureFR = data[57+mul];
+        m_tyresSurfaceTemperatureRL = Byte.toUnsignedInt(data[54+mul]);
+        m_tyresSurfaceTemperatureRR = Byte.toUnsignedInt(data[55+mul]);
+        m_tyresSurfaceTemperatureFL = Byte.toUnsignedInt(data[56+mul]);
+        m_tyresSurfaceTemperatureFR = Byte.toUnsignedInt(data[57+mul]);
 
-        m_tyresInnerTemperatureRL = data[58+mul];
-        m_tyresInnerTemperatureRR = data[59+mul];
-        m_tyresInnerTemperatureFL = data[60+mul];
-        m_tyresInnerTemperatureFR = data[61+mul];
+        m_tyresInnerTemperatureRL = Byte.toUnsignedInt(data[58+mul]);
+        m_tyresInnerTemperatureRR = Byte.toUnsignedInt(data[59+mul]);
+        m_tyresInnerTemperatureFL = Byte.toUnsignedInt(data[60+mul]);
+        m_tyresInnerTemperatureFR = Byte.toUnsignedInt(data[61+mul]);
 
         m_engineTemperature = toShort(data,62+mul);
 
@@ -210,37 +210,37 @@ public class CarTelemetry {
 
 
 
-    public byte getTyresSurfaceTemperatureRL() {
+    public int getTyresSurfaceTemperatureRL() {
         return m_tyresSurfaceTemperatureRL;
     }
 
-    public byte getTyresSurfaceTemperatureRR() {
+    public int getTyresSurfaceTemperatureRR() {
         return m_tyresSurfaceTemperatureRR;
     }
 
-    public byte getTyresSurfaceTemperatureFL() {
+    public int getTyresSurfaceTemperatureFL() {
         return m_tyresSurfaceTemperatureFL;
     }
 
-    public byte getTyresSurfaceTemperatureFR() {
+    public int getTyresSurfaceTemperatureFR() {
         return m_tyresSurfaceTemperatureFR;
     }
 
 
 
-    public byte getTyresInnerTemperatureRL() {
+    public int getTyresInnerTemperatureRL() {
         return m_tyresInnerTemperatureRL;
     }
 
-    public byte getTyresInnerTemperatureRR() {
+    public int getTyresInnerTemperatureRR() {
         return m_tyresInnerTemperatureRR;
     }
 
-    public byte getTyresInnerTemperatureFL() {
+    public int getTyresInnerTemperatureFL() {
         return m_tyresInnerTemperatureFL;
     }
 
-    public byte getTyresInnerTemperatureFR() {
+    public int getTyresInnerTemperatureFR() {
         return m_tyresInnerTemperatureFR;
     }
 
@@ -308,7 +308,7 @@ public class CarTelemetry {
     }
 
     public boolean innerTempsInWindow(int min, int max){
-        for (byte b : new byte[]{m_tyresInnerTemperatureFL,m_tyresInnerTemperatureFR,m_tyresInnerTemperatureRL,m_tyresInnerTemperatureRR}){
+        for (int b : new int[]{m_tyresInnerTemperatureFL,m_tyresInnerTemperatureFR,m_tyresInnerTemperatureRL,m_tyresInnerTemperatureRR}){
             if (b < min || b > max){
                 return false;
             }
