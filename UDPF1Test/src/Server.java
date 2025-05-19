@@ -19,6 +19,7 @@ public class Server {
         header.loadAndprintInfo(data);
 
         CarStatus cs = new CarStatus(header.getPlayerIndex());
+        LapData ld = new LapData(header.getPlayerIndex());
 
         for (int i = 0; i < 10000000; i++){
             server.receive(packet);
@@ -28,6 +29,11 @@ public class Server {
                 cs.loadInfo(data);
                 System.out.println("ERS: "+cs.getErsStoreEnergyPercent(2)+" %");
                 System.out.println("ERS Deployed: "+cs.getErsDeployedThisLapPercent(2)+" %");
+            }
+            if (header.getID() == 2){
+                ld.loadInfo(data);
+                System.out.println("BS1: "+ ld.getBestSector1TimeInMS()+"   "+"BS2: "+ ld.getBestSector2TimeInMS()+"   "+"BS3: "+ ld.getBestSector3TimeInMS());
+                System.out.println("Opti Lap: "+ld.getOptimalLapTimeMS());
             }
         }
     }
