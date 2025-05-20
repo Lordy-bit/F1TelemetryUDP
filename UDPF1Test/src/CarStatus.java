@@ -247,9 +247,12 @@ public class CarStatus {
     }
 
     public double getErsStoreEnergyPercent(int decimals) {
-        return (double)((int)(((m_ersStoreEnergy/10000)/4)*(10*decimals)))/(10*decimals);
+        return (double)(Math.floor(((m_ersStoreEnergy/10000)/4)*Math.pow(10,decimals)))/Math.pow(10,decimals);
     }
 
+    public double getErsStoreEnergyPercent() {
+        return (m_ersStoreEnergy / 10000) / 4;
+    }
 
     public byte getErsDeployMode() {
         return m_ersDeployMode;
@@ -272,9 +275,11 @@ public class CarStatus {
 
 
     public double getErsDeployedThisLapPercent(int decimals) {
-        return (double)((int)(((m_ersDeployedThisLap/10000)/4)*(10*decimals)))/(10*decimals);
+        return (double)(Math.floor(((m_ersDeployedThisLap/10000)/4)*Math.pow(10,decimals)))/Math.pow(10,decimals);
     }
-
+    public double getErsDeployedThisLapPercent() {
+        return (m_ersDeployedThisLap/10000)/4;
+    }
 
     public boolean getNetworkPaused() {
         if(m_networkPaused == 1){

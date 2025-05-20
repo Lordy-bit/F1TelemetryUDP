@@ -20,6 +20,7 @@ public class Server {
 
         CarStatus cs = new CarStatus(header.getPlayerIndex());
         LapData ld = new LapData(header.getPlayerIndex());
+        Motion mo = new Motion(header.getPlayerIndex());
 
         for (int i = 0; i < 10000000; i++){
             server.receive(packet);
@@ -27,13 +28,17 @@ public class Server {
             header.loadInfo(data);
             if (header.getID() == 7){
                 cs.loadInfo(data);
-                System.out.println("ERS: "+cs.getErsStoreEnergyPercent(2)+" %");
+                System.out.println("ERS: "+cs.getErsStoreEnergyPercent(1)+" %");
                 System.out.println("ERS Deployed: "+cs.getErsDeployedThisLapPercent(2)+" %");
             }
             if (header.getID() == 2){
                 ld.loadInfo(data);
                 System.out.println("BS1: "+ ld.getBestSector1TimeInMS()+"   "+"BS2: "+ ld.getBestSector2TimeInMS()+"   "+"BS3: "+ ld.getBestSector3TimeInMS());
                 System.out.println("Opti Lap: "+ld.getOptimalLapTimeMS());
+            }
+            if (header.getID() == 0){
+                mo.loadInfo(data);
+                System.out.println("G Force: "+mo.getGForceXY(2));
             }
         }
     }

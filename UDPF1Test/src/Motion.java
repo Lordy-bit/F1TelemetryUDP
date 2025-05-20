@@ -131,8 +131,8 @@ public class Motion {
         return Math.sqrt(m_gForceLateral*m_gForceLateral + m_gForceLongitudinal*m_gForceLongitudinal);
     }
 
-    public double getGForceXY(int decimals) {
-        return (double)((int)((Math.sqrt(m_gForceLateral*m_gForceLateral + m_gForceLongitudinal*m_gForceLongitudinal))*(10*decimals))/(10*decimals));
+    public float getGForceXY(int decimals) {
+        return (float) Math.floor((Math.sqrt(m_gForceLateral * m_gForceLateral + m_gForceLongitudinal * m_gForceLongitudinal)*(Math.pow(10,decimals)))/Math.pow(10,decimals));
     }
 
     public double getGAngle(){
