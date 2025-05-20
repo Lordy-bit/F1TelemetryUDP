@@ -7,8 +7,8 @@ public class LapData {
 
     private int      m_lastLapTimeInMS;	       	     // Last lap time in milliseconds
     private int      m_currentLapTimeInMS; 	         // Current time around the lap in milliseconds
-    private short    m_sector1TimeInMS;              // Sector 1 time in milliseconds
-    private short    m_sector2TimeInMS;              // Sector 2 time in milliseconds
+    private int      m_sector1TimeInMS;              // Sector 1 time in milliseconds
+    private int      m_sector2TimeInMS;              // Sector 2 time in milliseconds
     private float    m_lapDistance;		             // Distance vehicle is around current lap in metres – could
                                                      // be negative if line hasn’t been crossed yet
     private float    m_totalDistance;		         // Total distance travelled in session in metres – could
@@ -31,7 +31,7 @@ public class LapData {
                                                      // 3 = finished, 4 = didnotfinish, 5 = disqualified
                                                      // 6 = not classified, 7 = retired
     private byte     m_pitLaneTimerActive;     	     // Pit lane timing, 0 = inactive, 1 = active
-    private short    m_pitLaneTimeInLaneInMS;   	 // If active, the current time spent in the pit lane in ms
+    private int      m_pitLaneTimeInLaneInMS;   	 // If active, the current time spent in the pit lane in ms
     private short    m_pitStopTimerInMS;        	 // Time of the actual pit stop in ms
     private byte     m_pitStopShouldServePen;   	 // Whether the car should serve a penalty at this stop
 
@@ -44,12 +44,13 @@ public class LapData {
     //functional
     private int      m_bestLapTimeInMS;              //best lap registered
     private int      m_optimalLapTimeMS;             //optimal lap obtained by adding the best sectors together
-    private short    m_sector3TimeInMS;
-    private short    m_bestSector1TimeInMS;
-    private short    m_bestSector2TimeInMS;
-    private short    m_bestSector3TimeInMS;
-    private short    lastS1;
-    private short    lastS2;
+    private int      m_sector3TimeInMS;
+    private int      m_bestSector1TimeInMS;
+    private int      m_bestSector2TimeInMS;
+    private int      m_bestSector3TimeInMS;
+    private int      lastS1;
+    private int      lastS2;
+    private int      lastS3;
 
 
     public LapData (int index){
@@ -77,7 +78,7 @@ public class LapData {
 
         m_currentLapTimeInMS = toInt(data,28+mul);
 
-        m_sector1TimeInMS = (short) Math.abs(toShort(data,32+mul));
+        m_sector1TimeInMS = Short.toUnsignedInt(toShort(data,32+mul));
 
         if(m_sector1TimeInMS != 0){
             lastS1 = m_sector1TimeInMS;
@@ -87,7 +88,7 @@ public class LapData {
             m_bestSector1TimeInMS = lastS1;
         }
 
-        m_sector2TimeInMS = (short)Math.abs(toShort(data, 34+mul));
+        m_sector2TimeInMS =Short.toUnsignedInt(toShort(data, 34+mul));
 
         if(m_sector2TimeInMS != 0){
             lastS2 = m_sector2TimeInMS;
@@ -114,7 +115,7 @@ public class LapData {
         m_driverStatus = data[59+mul];
         m_resultStatus = data[60+mul];
         m_pitLaneTimerActive = data[61+mul];
-        m_pitLaneTimeInLaneInMS = toShort(data,62+mul);
+        m_pitLaneTimeInLaneInMS = Short.toUnsignedInt(toShort(data,62+mul));
         m_pitStopTimerInMS = toShort(data,64);
         m_pitStopShouldServePen = data[66+mul];
 
@@ -123,7 +124,11 @@ public class LapData {
 
 
         if(m_sector == 0 && lastS1 > 0 && lastS2 > 0){
-            m_sector3TimeInMS = (short)(m_lastLapTimeInMS-(lastS1+lastS2));
+            m_sector3TimeInMS =m_lastLapTimeInMS-(lastS1+lastS2);
+        }
+
+        if(m_sector3TimeInMS != 0){
+            lastS3 = m_sector3TimeInMS;
         }
 
         if(m_bestSector3TimeInMS == 0 && m_sector3TimeInMS >= 0 || m_sector3TimeInMS < m_bestSector3TimeInMS && m_sector3TimeInMS > 0){
@@ -154,15 +159,15 @@ public class LapData {
         return m_currentLapTimeInMS;
     }
 
-    public short getSector1TimeInMS() {
+    public int getSector1TimeInMS() {
         return m_sector1TimeInMS;
     }
 
-    public short getSector2TimeInMS() {
+    public int getSector2TimeInMS() {
         return m_sector2TimeInMS;
     }
 
-    public short getSector3TimeInMS() {
+    public int getSector3TimeInMS() {
         return m_sector3TimeInMS;
     }
 
@@ -237,7 +242,7 @@ public class LapData {
         return m_pitLaneTimerActive;
     }
 
-    public short getPitLaneTimeInLaneInMS() {
+    public int getPitLaneTimeInLaneInMS() {
         return m_pitLaneTimeInLaneInMS;
     }
 
@@ -268,24 +273,28 @@ public class LapData {
         return m_optimalLapTimeMS;
     }
 
-    public short getBestSector1TimeInMS() {
+    public int getBestSector1TimeInMS() {
         return m_bestSector1TimeInMS;
     }
 
-    public short getBestSector2TimeInMS() {
+    public int getBestSector2TimeInMS() {
         return m_bestSector2TimeInMS;
     }
 
-    public short getBestSector3TimeInMS() {
+    public int getBestSector3TimeInMS() {
         return m_bestSector3TimeInMS;
     }
 
-    public short getLastS1() {
+    public int getLastS1() {
         return lastS1;
     }
 
-    public short getLastS2() {
+    public int getLastS2() {
         return lastS2;
+    }
+
+    public int getLastS3() {
+        return lastS3;
     }
 
     public String timeToString(int timeInMS){

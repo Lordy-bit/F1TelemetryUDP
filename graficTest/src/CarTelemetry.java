@@ -8,40 +8,40 @@ public class CarTelemetry {
     // RL, RR, FL, FR
 
 
-    private short     m_speed;                        // Speed of car in kilometres per hour
-    private float     m_throttle;                     // Amount of throttle applied (0.0 to 1.0)
-    private float     m_steer;                        // Steering (-1.0 (full lock left) to 1.0 (full lock right))
-    private float     m_brake;                        // Amount of brake applied (0.0 to 1.0)
-    private byte      m_clutch;                       // Amount of clutch applied (0 to 100)
-    private byte      m_gear;                         // Gear selected (1-8, N=0, R=-1)
-    private short     m_engineRPM;                    // Engine RPM
-    private byte      m_drs;                          // 0 = off, 1 = on
-    private byte      m_revLightsPercent;             // Rev lights indicator (percentage)
-    private short     m_revLightsBitValue;            // Rev lights (bit 0 = leftmost LED, bit 14 = rightmost LED)
+    private short     m_speed;                              // Speed of car in kilometres per hour
+    private float     m_throttle;                           // Amount of throttle applied (0.0 to 1.0)
+    private float     m_steer;                              // Steering (-1.0 (full lock left) to 1.0 (full lock right))
+    private float     m_brake;                              // Amount of brake applied (0.0 to 1.0)
+    private byte      m_clutch;                             // Amount of clutch applied (0 to 100)
+    private byte      m_gear;                               // Gear selected (1-8, N=0, R=-1)
+    private short     m_engineRPM;                          // Engine RPM
+    private byte      m_drs;                                // 0 = off, 1 = on
+    private byte      m_revLightsPercent;                   // Rev lights indicator (percentage)
+    private short     m_revLightsBitValue;                  // Rev lights (bit 0 = leftmost LED, bit 14 = rightmost LED)
 
-    private short     m_brakesTemperatureRL;          // Brakes temperature (celsius)
+    private short     m_brakesTemperatureRL;                // Brakes temperature (celsius)
     private short     m_brakesTemperatureRR;
     private short     m_brakesTemperatureFL;
     private short     m_brakesTemperatureFR;
 
-    private byte      m_tyresSurfaceTemperatureRL;    // Tyres surface temperature (celsius)
-    private byte      m_tyresSurfaceTemperatureRR;
-    private byte      m_tyresSurfaceTemperatureFL;
-    private byte      m_tyresSurfaceTemperatureFR;
+    private int       m_tyresSurfaceTemperatureRL;          // Tyres surface temperature (celsius)
+    private int       m_tyresSurfaceTemperatureRR;
+    private int       m_tyresSurfaceTemperatureFL;
+    private int       m_tyresSurfaceTemperatureFR;
 
-    private byte      m_tyresInnerTemperatureRL;     // Tyres inner temperature (celsius)
-    private byte      m_tyresInnerTemperatureRR;
-    private byte      m_tyresInnerTemperatureFL;
-    private byte      m_tyresInnerTemperatureFR;
+    private int       m_tyresInnerTemperatureRL;            // Tyres inner temperature (celsius)
+    private int       m_tyresInnerTemperatureRR;
+    private int       m_tyresInnerTemperatureFL;
+    private int       m_tyresInnerTemperatureFR;
 
-    private short     m_engineTemperature;           // Engine temperature (celsius)
+    private short     m_engineTemperature;                  // Engine temperature (celsius)
 
-    private float     m_tyresPressureRL;            // Tyres pressure (PSI)
+    private float     m_tyresPressureRL;                    // Tyres pressure (PSI)
     private float     m_tyresPressureRR;
     private float     m_tyresPressureFL;
     private float     m_tyresPressureFR;
 
-    private byte      m_surfaceTypeRL;               // Driving surface, see appendices
+    private byte      m_surfaceTypeRL;                      // Driving surface, see appendices
     private byte      m_surfaceTypeRR;
     private byte      m_surfaceTypeFL;
     private byte      m_surfaceTypeFR;
@@ -89,15 +89,15 @@ public class CarTelemetry {
         m_brakesTemperatureFL = toShort(data,50+mul);
         m_brakesTemperatureFR = toShort(data,52+mul);
 
-        m_tyresSurfaceTemperatureRL = data[54+mul];
-        m_tyresSurfaceTemperatureRR = data[55+mul];
-        m_tyresSurfaceTemperatureFL = data[56+mul];
-        m_tyresSurfaceTemperatureFR = data[57+mul];
+        m_tyresSurfaceTemperatureRL = Byte.toUnsignedInt(data[54+mul]);
+        m_tyresSurfaceTemperatureRR = Byte.toUnsignedInt(data[55+mul]);
+        m_tyresSurfaceTemperatureFL = Byte.toUnsignedInt(data[56+mul]);
+        m_tyresSurfaceTemperatureFR = Byte.toUnsignedInt(data[57+mul]);
 
-        m_tyresInnerTemperatureRL = data[58+mul];
-        m_tyresInnerTemperatureRR = data[59+mul];
-        m_tyresInnerTemperatureFL = data[60+mul];
-        m_tyresInnerTemperatureFR = data[61+mul];
+        m_tyresInnerTemperatureRL = Byte.toUnsignedInt(data[58+mul]);
+        m_tyresInnerTemperatureRR = Byte.toUnsignedInt(data[59+mul]);
+        m_tyresInnerTemperatureFL = Byte.toUnsignedInt(data[60+mul]);
+        m_tyresInnerTemperatureFR = Byte.toUnsignedInt(data[61+mul]);
 
         m_engineTemperature = toShort(data,62+mul);
 
@@ -210,37 +210,37 @@ public class CarTelemetry {
 
 
 
-    public byte getTyresSurfaceTemperatureRL() {
+    public int getTyresSurfaceTemperatureRL() {
         return m_tyresSurfaceTemperatureRL;
     }
 
-    public byte getTyresSurfaceTemperatureRR() {
+    public int getTyresSurfaceTemperatureRR() {
         return m_tyresSurfaceTemperatureRR;
     }
 
-    public byte getTyresSurfaceTemperatureFL() {
+    public int getTyresSurfaceTemperatureFL() {
         return m_tyresSurfaceTemperatureFL;
     }
 
-    public byte getTyresSurfaceTemperatureFR() {
+    public int getTyresSurfaceTemperatureFR() {
         return m_tyresSurfaceTemperatureFR;
     }
 
 
 
-    public byte getTyresInnerTemperatureRL() {
+    public int getTyresInnerTemperatureRL() {
         return m_tyresInnerTemperatureRL;
     }
 
-    public byte getTyresInnerTemperatureRR() {
+    public int getTyresInnerTemperatureRR() {
         return m_tyresInnerTemperatureRR;
     }
 
-    public byte getTyresInnerTemperatureFL() {
+    public int getTyresInnerTemperatureFL() {
         return m_tyresInnerTemperatureFL;
     }
 
-    public byte getTyresInnerTemperatureFR() {
+    public int getTyresInnerTemperatureFR() {
         return m_tyresInnerTemperatureFR;
     }
 
@@ -271,22 +271,22 @@ public class CarTelemetry {
 
     public float getTyresPressureRL(){
         int m = (int)(m_tyresPressureRL*10);
-        return ((float)m/10);
+        return (float)m/10;
     }                              //troncated
 
     public float getTyresPressureRR(){
         int m = (int)(m_tyresPressureRR*10);
-        return ((float)m/10);
+        return (float)m/10;
     }
 
     public float getTyresPressureFL(){
         int m = (int)(m_tyresPressureFL*10);
-        return ((float)m/10);
+        return (float)m/10;
     }
 
     public float getTyresPressureFR(){
         int m = (int)(m_tyresPressureFR*10);
-        return ((float)m/10);
+        return (float)m/10;
     }
 
 
@@ -308,7 +308,7 @@ public class CarTelemetry {
     }
 
     public boolean innerTempsInWindow(int min, int max){
-        for (byte b : new byte[]{m_tyresInnerTemperatureFL,m_tyresInnerTemperatureFR,m_tyresInnerTemperatureRL,m_tyresInnerTemperatureRR}){
+        for (int b : new int[]{m_tyresInnerTemperatureFL,m_tyresInnerTemperatureFR,m_tyresInnerTemperatureRL,m_tyresInnerTemperatureRR}){
             if (b < min || b > max){
                 return false;
             }
